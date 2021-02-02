@@ -3,3 +3,10 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+.github
+test
+.editorconfig
+.gitattributes
+.travis.yml
+CHANGELOG.md
+docs

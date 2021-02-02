@@ -70,6 +70,10 @@ GEM
       tzinfo (>= 1.0.0)
     unicode-display_width (1.7.0)
     wdm (0.1.1)
+<<<<<<< HEAD
+=======
+    webrick (1.7.0)
+>>>>>>> c45d1275909a663d2b9212f93aad180f218ebe5f
 
 PLATFORMS
   x86-mingw32
@@ -81,6 +85,7 @@ DEPENDENCIES
   tzinfo (~> 1.2)
   tzinfo-data
   wdm (~> 0.1.1)
+  webrick (~> 1.7)
 
 BUNDLED WITH
    2.2.3

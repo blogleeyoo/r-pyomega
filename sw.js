@@ -1,11 +1,6 @@
----
-layout: compress
-# PWA service worker
----
+self.importScripts('/r-pyomega/assets/js/data/cache-list.js');
 
-self.importScripts('{{ "/assets/js/data/cache-list.js" | relative_url }}');
-
-var cacheName = 'chirpy-{{ "now" | date: "%Y%m%d.%H%M" }}';
+var cacheName = 'chirpy-20210203.0122';
 
 
 function isExcluded(url) {
@@ -59,3 +54,4 @@ self.addEventListener('activate', (e) => {
     })
   );
 });
+

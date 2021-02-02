@@ -8,8 +8,13 @@ vendor
 
 # rubygem
 *.gem
+Gemfile
+Gemfile.lock
+jekyll-theme-chirpy.gemspec
+
 # yard docs
 doc
+docs
 
 # npm dependencies
 node_modules

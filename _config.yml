@@ -8,7 +8,7 @@ theme: jekyll-theme-chirpy
 baseurl: '/r-pyomega'
 
 # the HTML language tag › https://www.w3.org/International/questions/qa-choosing-language-tags
-lang: kor-Ko
+lang: ko-KR
 
 # Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
 timezone: Asia/Seoul
@@ -23,7 +23,7 @@ description: >-                        # used by seo meta and the atom feed
   Lee & Yoo R Python blog
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'https://blogleeyoo.github.io/'
+url: 'https://blogleeyoo.github.io/r-pyomega/'
 
 author: Blogleeyoo                 # change to your full name
 
@@ -70,7 +70,7 @@ google_analytics:
 #     light  - Use the light color scheme
 #     dark   - Use the dark color scheme
 #
-theme_mode:   dark# [light|dark]
+theme_mode: dark
 
 # The CDN endpoint for images.
 # Notice that once it is assigned, the CDN url

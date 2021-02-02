@@ -1,12 +1,16 @@
+# hidden files
+.*
+!.github
+
+# jekyll cache
 _site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
 vendor
-.github
-test
-.editorconfig
-.gitattributes
-.travis.yml
-CHANGELOG.md
-docs
+
+# rubygem
+*.gem
+# yard docs
+doc
+
+# npm dependencies
+node_modules
+package-lock.json

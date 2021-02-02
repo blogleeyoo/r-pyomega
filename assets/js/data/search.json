@@ -1,17 +1,1 @@
----
-layout: compress
----
-
-[
-  {% for post in site.posts %}
-  {
-    "title": "{{ post.title | escape }}",
-    "url": "{{ site.baseurl }}{{ post.url }}",
-    "categories": "{{ post.categories | join: ', '}}",
-    "tags": "{{ post.tags | join: ', ' }}",
-    "date": "{{ post.date }}",
-    {% include no-linenos.html content=post.content %}
-    "snippet": "{{ content | strip_html | strip_newlines | remove_chars | escape | truncate: 300 | replace: '\', '\\\\' }}"
-  }{% unless forloop.last %},{% endunless %}
-  {% endfor %}
-]
+[ { "title": "Welcome to Jekyll!", "url": "/jekyll/update/2021/01/12/welcome-to-jekyll.html", "categories": "jekyll, update", "tags": "", "date": "2021-01-12 16:28:39 +0900", "snippet": "You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.Jekyll..." }, { "title": "Enable Google Page Views", "url": "/blogging/tutorial/2021/01/04/enable-google-pv.html", "categories": "Blogging, Tutorial", "tags": "google analytics, pageviews", "date": "2021-01-04 08:32:00 +0900", "snippet": "This post is to enable Page Views on the Chirpy theme based blog that you just built. This requires technical knowledge and it’s recommended to keep the google_analytics.pv disabled unless you have a good reason. If your website has low traffic, the page views count would discourage you to write ..." }, { "title": "Customize the Favicon", "url": "/blogging/tutorial/2019/08/11/customize-the-favicon.html", "categories": "Blogging, Tutorial", "tags": "favicon", "date": "2019-08-11 01:34:00 +0900", "snippet": "In Chirpy, the image files of Favicons are placed in assets/img/favicons/. You may need to replace them with your own. So let’s see how to customize these Favicons.With a square image (PNG, JPG or GIF) in hand, open the site Favicon &amp;amp; App Icon Generator and upload your original image.Clic..." }, { "title": "Getting Started", "url": "/blogging/tutorial/2019/08/09/getting-started.html", "categories": "Blogging, Tutorial", "tags": "getting started", "date": "2019-08-09 21:55:00 +0900", "snippet": "PrerequisitesFollow the Jekyll Docs to complete the installation of Ruby, RubyGems, Jekyll and Bundler.InstallationThere are two ways to get the theme: Install from RubyGems Fork from GitHubInstall From RubygemsAdd this line to your Jekyll site’s Gemfile:gem &quot;jekyll-theme-chirpy&quot;And a..." }, { "title": "Writing a New Post", "url": "/blogging/tutorial/2019/08/08/write-a-new-post.html", "categories": "Blogging, Tutorial", "tags": "writing", "date": "2019-08-08 15:10:00 +0900", "snippet": "Naming and PathCreate a new file named YYYY-MM-DD-TITLE.EXTENSION and put it in the _posts/ of the root directory. Please note that the EXTENSION must be one of md and markdown.Front MatterBasically, you need to fill the Front Matter as below at the top of the post:---title: TITLEdate: YYYY-MM-DD..." }, { "title": "Text and Typography", "url": "/blogging/demo/2019/08/08/text-and-typography.html", "categories": "Blogging, Demo", "tags": "typography", "date": "2019-08-08 12:33:00 +0900", "snippet": "This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography.TitlesH1 - headingH2 - headingH3 - headingH4 - headingParagraphI wandered lonely as a cloudThat floats on high o’er vales and hills,When all at o..." } ]

@@ -23,7 +23,6 @@ description: >-                        # used by seo meta and the atom feed
   Lee & Yoo R Python blog
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-# url: 'https://blogleeyoo.github.io/r-pyomega/'
 url: 'https://blogleeyoo.github.io'
 
 author: Blogleeyoo                 # change to your full name

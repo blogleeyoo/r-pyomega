@@ -1,5 +1,8 @@
+---
+layout: compress
+---
+
 /* Registering Service Worker */
 if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/r-pyomega/sw.js');
+  navigator.serviceWorker.register('{{ "/sw.js" | relative_url }}');
 };
-

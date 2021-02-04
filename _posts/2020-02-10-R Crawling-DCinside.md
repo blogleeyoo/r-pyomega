@@ -12,14 +12,16 @@ image:
 <br>
 크롤링에 필요한 패키지(package)와 라이브러리(library)는 아래와 같습니다<br>
 <br>
+```R
 install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")<br>
-<br>
+
 · library(dplyr)<br>
 · library(httr)<br>
 · library(jsonlite)<br>
 · library(rJava)<br>
 · library(RSelenium)<br>
 · library(stringr)<br>
+```
  <br>
 <br>
  <br>
@@ -38,6 +40,7 @@ install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")
 크롤링 대상은 제가 요즘 빠져있는 여배우 "아라가키 유이"의 갤러리 입니다<br>
 <br>
 해당 사이트는 구조가 복잡하지 않고 게시글 숫자가 많지 않아 연습으로 제격입니다 (사심이 많이 들어갔네요 하하)<br>
+![gaki1](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbM0PlP%2FbtqBO8oWVaY%2Fsn5wfw7t06z6GzeVzI0fEk%2Fimg.gif)
 <br>
 <br>
 유난히 사진이 빛이 나보이는건 기분 탓이겠죠?<br>
@@ -144,6 +147,7 @@ URL구조가 이제 어떠한 알고리즘(?)인지 감이 오실겁니다<br>
  <br><br>
 <br>
 다음과 같은 난생 처음 볼법한 페이지가 뜹니다(저는 검정바탕화면인데 대부분 이용자는 하양바탕이 보통입니다)
+![gaki2](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FU7US8%2FbtqBPW2EHFm%2FwqL48aaA1JXX48GaFwFjd1%2Fimg.png)
 <br>
 <br>
  <br>
@@ -153,6 +157,7 @@ URL구조가 이제 어떠한 알고리즘(?)인지 감이 오실겁니다<br>
  <br>
 <br>
 Network를 눌러봅시다<br>
+![gaki3](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcFLKPg%2FbtqBQodxOC3%2FDiJFUV896Y0tnegxLm0dIK%2Fimg.png)
 <br>
 <br>
  <br>
@@ -170,6 +175,7 @@ Network를 눌러봅시다<br>
 디시인사이드는 입문자용잡게 우리에게 필요한 정보는 가장 위에 있습니다<br>
 <br>
 클릭합니다<br>
+![gaki4](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FefiISq%2FbtqBO7QRFGD%2FgkD7kORkpx7Asa63Gufbo1%2Fimg.png)
 <br>
 <br>
  <br>
@@ -179,6 +185,7 @@ Network를 눌러봅시다<br>
  <br>
 <br>
 Header - General에서 필요한 정보는 Request URL과 Request Method입니다<br>
+![gaki5](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbcxkVb%2FbtqBO8hXmX2%2FiqlVySV5y4j4wLVm7YyG4K%2Fimg.png)
 <br>
 <br>
  <br>
@@ -188,6 +195,7 @@ Header - General에서 필요한 정보는 Request URL과 Request Method입니�
  <br>
 <br>
 아래로 내려가 Query String Parameter로 가서 정보를 확인합니다<br>
+![gaki6](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F2jXwi%2FbtqBQ2uwAvw%2FerqpGb4WZQaK69QARbZoHK%2Fimg.png)
 <br>
 <br>
  <br>
@@ -244,6 +252,7 @@ res_yui <- GET(url = 'https://gall.dcinside.com/mgallery/board/lists/',
 그러면 게시글 링크을 긁어봅시다<br>
 <br>
 Elements를 클릭하고 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭합시다<br>
+![gaki7](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fcbq2p2%2FbtqBQnTctFH%2FgVJToAKulVCGnhC9ybxY21%2Fimg.png)
 <br>
 <br>
  <br>
@@ -255,6 +264,7 @@ Elements를 클릭하고 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭
 글 제목에 마우스를 올리면 이런 팝업창이 뜹니다<br>
 <br>
 제목을 클릭해봅시다<br>
+![gaki8](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FeVcRUZ%2FbtqBSPuHqP1%2FCYSSnaScsyOzppgzkKFwW0%2Fimg.png)
 <br>
 <br>
  <br>
@@ -264,6 +274,7 @@ Elements를 클릭하고 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭
 클릭한 제목에 해당하는 Element가 나옵니다<br>
 <br>
 링크 뿐만 아니라 게시글 제목 또한 나옵니다<br>
+![gaki9](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FsBkSq%2FbtqBSPnUXzA%2FRbL2KPEtTIneWSELD4NbN1%2Fimg.png)
 <br>
 <br>
  <br>
@@ -300,11 +311,13 @@ if (length(링크.각키.tmp) == 0) {
 <br>
  <br>
 <br>
-※ element에 가장 앞에있는 글자(td)와 class(gall_tit.ub-word)를 점(.)으로 이어줍니다<br>
-<br>
-※ 참고로 class없이 id만 있는 경우는 "#"으로 이어줍니다 예시: td#gall_tit.ub-word<br>
-<br>
-※ 해당 element에 html_nodes("element")를 입력했음에도 정보를 크롤링하지 못한경우에는 상위 단계의 element를 추가합니다 (예시를 보겠습니다)<br>
+```
+※ element에 가장 앞에있는 글자(td)와 class(gall_tit.ub-word)를 점(.)으로 이어줍니다
+
+※ 참고로 class없이 id만 있는 경우는 "#"으로 이어줍니다 예시: td#gall_tit.ub-word
+
+※ 해당 element에 html_nodes("element")를 입력했음에도 정보를 크롤링하지 못한경우에는 상위 단계의 element를 추가합니다 (예시를 보겠습니다)
+```
 <br>
  <br>
 <br>
@@ -354,6 +367,7 @@ if (length(링크.각키.tmp) == 0) {
 제대로 구동되었는지 확인합시다<br>
 <br>
 한 페이지당 50개 게시글이 있는데 각각의 링크가 제대로 저장되었습니다<br>
+![gaki10](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcjX9r1%2FbtqBS6XivbF%2Fb7hgdiW7Qrer0xeGDIDvPK%2Fimg.png)
 <br>
 <br>
  <br>
@@ -374,8 +388,10 @@ if (length(링크.각키.tmp) == 0) {
 <br>
 아래 R명령어를 추가적으로 실행합니다<br>
 <br>
+```R
 링크_각키 <- paste0("https://gall.dcinside.com/",링크_각키)<br>
- <br>
+```
+<br>
 <br>
  <br>
 <br>
@@ -405,6 +421,7 @@ if (length(링크.각키.tmp) == 0) {
 <br>
 selenium(셀레니움)을 켭니다<br>
 <br>
+```
 cmd를 켠 상태에서<br>
 <br>
 1) cd C:\r_selenium<br>
@@ -412,6 +429,7 @@ cmd를 켠 상태에서<br>
 2) java -Dwebdriver.gecko.driver="geckodriver.exe" -jar selenium-server-standalone-4.0.0-alpha-1.jar -port 4445<br>
 <br>
 입력후 엔터로 실행합니다<br>
+```
 <br>
  <br>
 <br>
@@ -422,11 +440,12 @@ cmd를 켠 상태에서<br>
  <br>
 <br>
 ## RSelenium<br>
-<br>
+```R
 remDr <- remoteDriver(remoteServerAddr="localhost",  
                       port=4445L,  
                       browserName="chrome") 
 remDr$open()
+```
 <br>
  <br>
 <br>
@@ -442,15 +461,17 @@ remDr$open()
 <br>
 ## 수집하려는 요소의 벡터공간을 사전에 만듭니다<br>
 <br>
-제목_각키 <- c()<br>
-<br>
-작성자_각키 <- c()<br>
-<br>
-날짜_각키 <- c()<br>
-<br>
-본문_각키 <-c()<br>
-<br>
-주소_각키 <-c()           ## element를 수집한 링크 주소를 하나씩 저장합시다<br>
+```R
+제목_각키 <- c()
+
+작성자_각키 <- c()
+
+날짜_각키 <- c()
+
+본문_각키 <-c()
+
+주소_각키 <-c()           ## element를 수집한 링크 주소를 하나씩 저장합시다
+```
 <br>
  <br>
 <br>
@@ -458,17 +479,19 @@ remDr$open()
 <br>
 ## 각키갤 첫번째 게시글로 이동합니다<br>
 <br>
-remDr$navigate(링크_각키[1])<br>
- <br>
+```R
+remDr$navigate(링크_각키[1])
+```
+<br>
 <br>
  <br>
 <br>
 ## 게시글의  html요소를 읽어옵니다<br>
-<br>
-body <- remDr$getPageSource()[[1]]<br>
-<br>
-body <- body %>% read_html()<br>
-<br>
+```R
+body <- remDr$getPageSource()[[1]]
+
+body <- body %>% read_html()
+```
  <br>
 <br>
  <br>
@@ -487,7 +510,7 @@ F12를 누르고 클릭하여 Element의 위치를 파악합시다<br>
  <br>
 <br>
 제목을 수집하는 명령어는 위 스크린샷을 기반으로 작성하면 다음과 같습니다<br>
-
+```R
 제목.각키.tmp <- body %>%  
   html_nodes("span.title_subject") %>%  
   html_text() 
@@ -498,7 +521,7 @@ if (length(제목.각키.tmp) == 0) {
 } else { 
   제목_각키 <- append(제목_각키, 제목.각키.tmp) 
 }  ## 수집한 제목 없을 경우 "수동확인", 제대로 수집한 경우는 "제목_각키"벡터 공간에 저장합니다
- 
+```
 
 이와 동일하게 작성자 / 날짜 / 본문을 수집하겠습니다<br>
 <br>
@@ -509,7 +532,7 @@ if (length(제목.각키.tmp) == 0) {
  <br>
 <br>
 ##작성자 수집<br>
-<br>
+```R
 작성자.각키.tmp <- body %>%  
   html_nodes("div.fl") %>%  
   html_nodes("span.nickname") %>%  
@@ -522,13 +545,13 @@ if (length(제목.각키.tmp) == 0) {
 } else { 
   작성자_각키 <- append(작성자_각키, 작성자.각키.tmp) 
 }  ## 수집한 작성자 없을 경우 "수동확인", 제대로 수집한 경우는 "작성자_각키"벡터 공간에 저장합니다 
-
+```
 
 
  
 
 ##날짜 수집<br>
-<br>
+```R
 날짜.각키.tmp <- body %>%  
   html_nodes("span.gall_date") %>%  
   html_text() 
@@ -539,13 +562,13 @@ if (length(날짜.각키.tmp) == 0) {
 } else { 
   날짜_각키 <- append(날짜_각키, 날짜.각키.tmp) 
 }  ## 수집한 작성자 없을 경우 "수동확인", 제대로 수집한 경우는 "작성자_각키"벡터 공간에 저장합니다 
-<br>
+```
  <br>
 <br>
  <br>
 <br>
 ## 본문 수집<br>
-<br>
+```R
 본문.각키.tmp <- body %>%  
   html_nodes("div.writing_view_box") %>%  
   html_text() 
@@ -556,7 +579,7 @@ if (length(날짜.각키.tmp) == 0) {
 } else { 
   본문_각키 <- append(본문_각키, 본문.각키.tmp) 
 }  ## 수집한 본문 없을 경우 "수동확인", 제대로 수집한 경우는 "본문_각키"벡터 공간에 저장합니다 
-<br>
+```
 <br>
 <br>
  <br>
@@ -564,8 +587,9 @@ if (length(날짜.각키.tmp) == 0) {
  <br>
 <br>
 ## 주소(URL)<br>
-
+```R
 주소_각키 <- append(주소_각키, 링크_각키[1])     # 나중에 for문을 이용할때는 [1]을 바꾸어줍니다 지금은 편의상 [1]로
+```
  <br>
 <br>
  <br>
@@ -577,7 +601,7 @@ if (length(날짜.각키.tmp) == 0) {
 ## 데이터 전처리<br>
 <br>
 본문 결과를 확인해봅시다<br>
-<br>
+![gaki11](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbDB14i%2FbtqBO8CsLmV%2F86zRjlu6kbp5qzavKtTyDk%2Fimg.png)
 <br>
  <br>
 <br>
@@ -596,11 +620,12 @@ R 뿐만이 아니라 대부분 프로그래밍 언어는 정규표현식을 지
 삭제 명령어는 str_replace_all( )를 이용합니다<br>
 <br>
  <br>
-<br>
+```R
 본문_각키 <- str_replace_all(본문_각키,"\n","") 
 본문_각키 <- str_replace_all(본문_각키,"\t","")
- <br>
-<br>
+```
+![gaki12](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcfhCd4%2FbtqBSOv3TwR%2Fzh1ZGrvtLF6CxPVzyOQ0t0%2Fimg.png)
+
  <br>
 <br>
 <br>
@@ -621,15 +646,16 @@ R 뿐만이 아니라 대부분 프로그래밍 언어는 정규표현식을 지
  <br>
 <br>
 그럼 데이터 프레임으로 크롤링한 elements을 하나의 파일로 모아서 csv파일로 저장합니다<br>
-<br>
+```R
 df_각키 <- data.frame(제목_각키, 작성자_각키, 날짜_각키, 주소_각키) 
 write.csv(df_각키, file = "D:/df_각키.csv", row.names=FALSE)
- <br>
+```
 <br>
 D드라이브로 가면 결과를 확인할 수 있습니다<br>
 <br>
 csv파일로 문제없이 저장되었습니다<br>
-<br>
+![gaki13](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fby8lX1%2FbtqBO8oYSjv%2FNLQAnKXVUo3TeGxzYf6wr0%2Fimg.png)
+
 <br>
  <br>
 <br>
@@ -659,6 +685,7 @@ csv파일로 문제없이 저장되었습니다<br>
 <br>
  <br>
 <br>
+```R
 ##### 각키갤 <GET/POST + 셀레니움(Selenium)><br>
 
 링크_각키 <- c()        ## "링크_각키" 라는 빈 벡터를 만듭니다 
@@ -817,6 +844,7 @@ Sys.sleep(time = 1)  #### (중요!) 반복되는 작업으로 디도스(DDOS)로
 
 df_각키 <- data.frame(제목_각키, 작성자_각키, 날짜_각키, 본문_각키, 주소_각키) 
 write.csv(df_각키, file = "D:/df_각키.csv", row.names=FALSE) 
+```
 <br>
  <br>
 <br>
@@ -824,4 +852,4 @@ write.csv(df_각키, file = "D:/df_각키.csv", row.names=FALSE)
 <br>
 <br><br>
 결과로 나온 최종 CSV파일입니다<br>
-
+![gaki14](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F32tAq%2FbtqBVgyT20U%2FC6B3QOq9721nzciXT4TNUk%2Fimg.png)

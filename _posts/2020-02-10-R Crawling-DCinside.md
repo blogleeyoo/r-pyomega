@@ -312,16 +312,22 @@ if (length(링크.각키.tmp) == 0) {
 <br>
     <br>             
 <br>
-
-
-| 해당 단계 element            | 상위 단계 element 추가  | 
-|------------------------------|-------------------------|
-| 링크.각키.tmp <- res_yui %>% 
+```
+해당 단계 element
+```
+```R
+링크.각키.tmp <- res_yui %>% 
   read_html() %>%  
   html_nodes('td.gall_tit.ub-word') %>%            
   html_nodes('a:nth-child(1)') %>%                 
   html_attr('href') %>%                                  
-  unique()                     | 링크.각키.tmp <- res_yui %>% 
+  unique()               
+```
+```
+상위 단계 element 추가
+```
+```R
+링크.각키.tmp <- res_yui %>% 
   read_html() %>%  
 
   html_nodes('tr.ub-content us-post') %>% 
@@ -330,8 +336,8 @@ if (length(링크.각키.tmp) == 0) {
   html_nodes('td.gall_tit.ub-word') %>%            
   html_nodes('a:nth-child(1)') %>%                 
   html_attr('href') %>%                                  
-  unique()                 | 
-
+  unique()                    
+```
   <br>
   <br>
   <br>

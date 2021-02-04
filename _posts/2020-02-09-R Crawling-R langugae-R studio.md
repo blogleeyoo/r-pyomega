@@ -36,7 +36,7 @@ https://www.r-project.org/로 이동합니다<br>
 <br>
 그리고 download R을 클릭합니다<br>
 ![download R](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbKSWRg%2FbtqBOsA4bBQ%2FJzLKk5FvtjmMWwVsZFmb4k%2Fimg.png)
- <br>
+<br>
 <br>
 국가별 링크가 쭉 나옵니다<br>
 <br>

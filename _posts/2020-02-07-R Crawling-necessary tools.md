@@ -1,7 +1,7 @@
 ---
 title: R 크롤링 필요 도구들 (Web crawling with R and necessary tools)
 author: Lee
-date: 2020. 2. 7. 17:53 +0900
+date: 2020-2-7 17:53 +0900
 categories: [R, Crawling]
 tags: [Crawling, r, R language, R studio, 설치, 웹 크롤링, 크롤링, 필수]
 math: true

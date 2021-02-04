@@ -183,8 +183,11 @@ ggplot2를 이용한 Q-Q을 그리면 좀더 다양한 옵션을 시각화 할 �
 ks.test(메카_num, pnorm, mean(메카_num), sd(메카_num), alternative = "two.sided") 
 ```
 *One-sample Kolmogorov-Smirnov test*
+<br>
 *data:  메카_num*
+<br>
 __D = 0.092019, p-value = 0.4455__
+<br>
 *alternative hypothesis: two-sided*
 
 여기서 H0 : 관측한 표본과 비교대상(정규분포)에 차이가 없다 입니다
@@ -200,8 +203,11 @@ Shapiro-Wilk Test는 표본의 정규성을 검정하는 모수적 검정입니�
 shapiro.test(메카_num)
 ```
 *Shapiro-Wilk normality test*
+<br>
 *data:  메카_num*
+<br>
 **W = 0.97241, p-value = 0.05708**
+<br>
 
 여기서 H0 : 정규분포(Normal distrubution)을 따른다 입니다
 

@@ -73,6 +73,7 @@ examScor %>% summary()
 각각에 대해 정규성 검정 및 시각화를 해봅시다
 
 <br>
+
 ### Q-Q plot (1)
 
 Q-Q plot에 대해서는 아래 위키백과를 참고해주세요
@@ -99,6 +100,7 @@ cor(sort_q, 메카_sort)
 *[1] 0.9886617*
 
 <br>
+
 ### Q-Q plot (2)
 qqnorm()으로 Q-Q plot을 그려보겠습니다
 ```r
@@ -117,6 +119,7 @@ cor(메카_sort_norm_x, 메카_sort_norm_y)
 *[1] 0.9873895*
 
 <br>
+
 ### Q-Q plot (3)
 좀더 다양한 옵션이 추가된 (이상치, 신뢰구간 등) 추가된 Q-Q plot을 그려봅시다
 ```r

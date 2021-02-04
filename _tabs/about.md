@@ -4,22 +4,22 @@ icon: fas fa-info
 order: 4
 ---
 
-#Lee
+# Lee
 
 통계학 박사(과정)
 
->Language
-  >R
-  >python
+> Language
+  > R
+  > python
 
-#Yoo
+# Yoo
 
 심리학(석사)
 LFJ(Data Analysis Career)
 
->Language
-  >python
-  >sql
+> Language
+  > python
+  > sql
 
 
 

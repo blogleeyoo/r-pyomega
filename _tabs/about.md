@@ -9,8 +9,8 @@ order: 4
 통계학 박사(과정)
 
 > Language
-  > R
-  > python
+  >> R
+  >> python
 
 # Yoo
 
@@ -18,8 +18,8 @@ order: 4
 LFJ(Data Analysis Career)
 
 > Language
-  > python
-  > sql
+  >> python
+  >> sql
 
 
 

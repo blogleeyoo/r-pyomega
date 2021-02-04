@@ -9,7 +9,7 @@ mermaid: true
 image:
   src: 
 ---
-![R book](../assets/img/items/{image}.png)
+![R book](../assets/img/items/r_book.png)
 _R과 함께하는 다변량 자료분석을 위한 추정과 검정, 최용석 지음, 2019_
 
 
@@ -17,7 +17,7 @@ _R과 함께하는 다변량 자료분석을 위한 추정과 검정, 최용석 
 
 ## 라이브러리 
 
-![full armor unicorn gundam](../assets/img/items/{image}.png)
+![full armor unicorn gundam](../assets/img/items/full_armor_unicorn_gundam.png)
 
 다변량 통계 분석에서 정규성 검정, 시각화 방법 등에 필요한 라이브러리 입니다
 
@@ -45,7 +45,7 @@ examScor %>% head()
 examScor %>% summary()
 ```
 
-![r table1](../assets/img/items/{image}.png)
+![r table1](../assets/img/items/r_table1.png)
 
 <br>
 
@@ -91,7 +91,7 @@ sort_q <- q %>% sort()
 메카_QQ <- plot(sort_q, 메카_sort, xlab = "Quantiles from Normal Distribution", ylab = "Sample Quantiles", main = "Q-Q plot-mechanics")
 abline(0,1,col="Red")
 ```
-![r q-q plot1](../assets/img/items/{image}.png)
+![r q-q plot1](../assets/img/items/r_qqplot1.png)
 
 얼마나 abline(0,1,col="Red")에 적합한지 상관계수로 알아봅시다
 ```r
@@ -107,7 +107,7 @@ qqnorm()으로 Q-Q plot을 그려보겠습니다
 메카_norm <- qqnorm(메카_num, pch = 1, main = "Q-Q plot(2)-mechanics")
 qqline(메카_num, col = "Blue", lwd = 2)
 ```
-![r q-q plot2](../assets/img/items/{image}.png)
+![r q-q plot2](../assets/img/items/r_qqplot2.png)
 
 얼마나 qqline(메카_num, col = "Blue", lwd = 2)에 적합한지 상관계수로 알아봅시다
 ```r
@@ -125,7 +125,7 @@ cor(메카_sort_norm_x, 메카_sort_norm_y)
 ```r
 메카_qqplot <- 메카_num %>% qqPlot(main = "Q-Q Normal Q-Q plot(2)-mechanics")
 ```
-![r q-q plot3](../assets/img/items/{image}.png)
+![r q-q plot3](../assets/img/items/r_qqplot3.png)
 #### 참고 : qqplot2
 
 ggplot2를 이용한 Q-Q을 그리면 좀더 다양한 옵션을 시각화 할 수 있습니다
@@ -167,7 +167,7 @@ ggplot2를 이용한 Q-Q을 그리면 좀더 다양한 옵션을 시각화 할 �
   labs(x = "Theoretical Quantiles", y = "Sample Quantiles") +
   scale_fill_discrete("Bandtype")
 ```
-![r q-q plot4](../assets/img/items/{image}.png)
+![r q-q plot4](../assets/img/items/r_qqplot4.png)
 
 #### Kolmogorov-Smirnov Test
 

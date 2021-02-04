@@ -22,8 +22,7 @@ _R과 함께하는 다변량 자료분석을 위한 추정과 검정, 최용석 
 
 다변량 통계 분석에서 정규성 검정, 시각화 방법 등에 필요한 라이브러리 입니다
 
-<span style="color:red">*library(MVT)*<br>*library(MVN)*<br>*library(dplyr)*<br>*library(car)*<br>*library(multifluo)*
- </span>.
+>*library(MVT)*<br>*library(MVN)*<br>*library(dplyr)*<br>*library(car)*<br>*library(multifluo)*
 
 ---
 <br>
@@ -98,7 +97,7 @@ abline(0,1,col="Red")
 ```r
 cor(sort_q, 메카_sort)
 ```
-<span style="color:red">*[1] 0.9886617*</span>
+*[1] 0.9886617*
 
 
 ### Q-Q plot (2)
@@ -116,7 +115,7 @@ qqline(메카_num, col = "Blue", lwd = 2)
 
 cor(메카_sort_norm_x, 메카_sort_norm_y)
 ```
-<span style="color:red">*[1] 0.9873895*</span>
+*[1] 0.9873895*
 
 ### Q-Q plot (3)
 좀더 다양한 옵션이 추가된 (이상치, 신뢰구간 등) 추가된 Q-Q plot을 그려봅시다
@@ -130,7 +129,7 @@ ggplot2를 이용한 Q-Q을 그리면 좀더 다양한 옵션을 시각화 할 �
 
 추가로 필요한 라이브러리는 다음과 같습니다
 
-<span style="color:red">*library(qqplotr)*<br>*library(tidyverse)*</span>
+*library(qqplotr)*<br>*library(tidyverse)*
  
  numeric형태인 메카_num을 변수 메카_score를 가지는 Data Frame으로 변화하여 따로 저장합니다
  ```
@@ -169,11 +168,11 @@ ggplot2를 이용한 Q-Q을 그리면 좀더 다양한 옵션을 시각화 할 �
 
 #### Kolmogorov-Smirnov Test
 
-<span style="color:red">*Kolmogorov-Smirnov Test*는 표본의 정규성을 검정하는 비모수 검정입니다. 비모수 검정은 데이터의 수가 정규성을 만족할 만큼 충분하다고 생각하지 않을때 적용하는 방법입니다</span>
+*Kolmogorov-Smirnov Test*는 표본의 정규성을 검정하는 비모수 검정입니다. 비모수 검정은 데이터의 수가 정규성을 만족할 만큼 충분하다고 생각하지 않을때 적용하는 방법입니다
 
 정규성을 만족하는 개수를 어떻게 구하는가는 또 다른 수리통계학적 방법이 있는데
 
-__"표본 크기에 따른 검정력함수의 비교(최강력 검정 : Most Powerful Test, MP test)"__로 필요한 표본의 크기를 산출 할수 있습니다
+**"표본 크기에 따른 검정력함수의 비교(최강력 검정 : Most Powerful Test, MP test)"**로 필요한 표본의 크기를 산출 할수 있습니다
 
 저는 이론적으로만 접해본적 있고 구현하지는 못해봤기에 다음기회에 다뤄보기로 하겠습니다
 
@@ -183,19 +182,10 @@ __"표본 크기에 따른 검정력함수의 비교(최강력 검정 : Most Pow
 ```
 ks.test(메카_num, pnorm, mean(메카_num), sd(메카_num), alternative = "two.sided") 
 ```
-<span style="color:red">
 *One-sample Kolmogorov-Smirnov test*
-</span>
-<br>
-<span style="color:red">
 *data:  메카_num*
-</span>
-<br>
 __D = 0.092019, p-value = 0.4455__
-<br>
-<span style="color:red">
 *alternative hypothesis: two-sided*
-</span>
 
 여기서 H0 : 관측한 표본과 비교대상(정규분포)에 차이가 없다 입니다
 
@@ -209,17 +199,9 @@ Shapiro-Wilk Test는 표본의 정규성을 검정하는 모수적 검정입니�
 ```
 shapiro.test(메카_num)
 ```
-<span style="color:red">
 *Shapiro-Wilk normality test*
-</span>
-<br>
-<span style="color:red">
 *data:  메카_num*
-</span>
-<br>
 **W = 0.97241, p-value = 0.05708**
-
- 
 
 여기서 H0 : 정규분포(Normal distrubution)을 따른다 입니다
 

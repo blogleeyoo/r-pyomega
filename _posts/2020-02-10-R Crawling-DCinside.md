@@ -11,20 +11,17 @@ image:
 ---
 <br>
 크롤링에 필요한 패키지(package)와 라이브러리(library)는 아래와 같습니다<br>
-<br>
 ```R
-install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")<br>
+install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")
 
-· library(dplyr)<br>
-· library(httr)<br>
-· library(jsonlite)<br>
-· library(rJava)<br>
-· library(RSelenium)<br>
-· library(stringr)<br>
+· library(dplyr)
+· library(httr)
+· library(jsonlite)
+· library(rJava)
+· library(RSelenium)
+· library(stringr)
 ```
- <br>
-<br>
- <br>
+
 <br>
 이외에도 더 필요한 패키지 및 라이브러리는 그때 그때 언급하겠습니다. <br>
 사실 R로 다양한 작업을 하다보면 필요한 라이브러리는 구분하지 않고 Rstudio를 실행할때 한꺼번에 불어오는 편입니다.<br>
@@ -36,16 +33,12 @@ install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")
 중간중간 설명을 붙이겠지만 이해가 잘 안되시는 유저들은 스크린샷과 명령어에 따라 실습하는걸 추천합니다<br>
 <br>
  <br>
-<br>
 크롤링 대상은 제가 요즘 빠져있는 여배우 "아라가키 유이"의 갤러리 입니다<br>
 <br>
-해당 사이트는 구조가 복잡하지 않고 게시글 숫자가 많지 않아 연습으로 제격입니다 (사심이 많이 들어갔네요 하하)<br>
+해당 사이트는 구조가 복잡하지 않고 게시글 숫자가 많지 않아 연습으로 제격입니다 <br>
+(사심이 많이 들어갔네요 하하)<br>
 ![gaki1](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbM0PlP%2FbtqBO8oWVaY%2Fsn5wfw7t06z6GzeVzI0fEk%2Fimg.gif)
-<br>
-<br>
 유난히 사진이 빛이 나보이는건 기분 탓이겠죠?<br>
- <br>
-<br>
  <br>
 <br>
 그럼 "아라가키 유이 갤러리"로 가보겠습니다<br>
@@ -53,10 +46,6 @@ install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")
 https://gall.dcinside.com/mgallery/board/lists?id=aragakiyui<br>
 <br>
  <br>
-<br>
-<br>
- <br>
-<br>
 URL주소를 살펴볼 필요가 있습니다<br>
 <br>
 https://gall.dcinside.com/mgallery/board/lists?id=aragakiyui를 잘 살펴봅시다.<br>
@@ -64,25 +53,19 @@ https://gall.dcinside.com/mgallery/board/lists?id=aragakiyui를 잘 살펴봅시
 잘은 모르겠지만 "?"를 기점으로 분리해봅시다<br>
 <br>
  <br>
-<br>
- <br><br>
-<br>
+```
 URL : https://gall.dcinside.com/mgallery/board/lists<br>
-<br>
-Query String(추가적 정보) :<br><br>
-<br>
-1) id=aragakiyui<br>
-<br>
- <br>
+
+Query String(추가적 정보) :
+
+1) id=aragakiyui
+```
 <br>
 우리가 하루에도 수십번씩 접속하는 흔히 말하는 URL은 사실은 URL + Query String로 나뉘어져 있는 URI(Uniform Resourse Indicator)입니다.<br>
 URL은 URI은 부분집합이라 할수 있죠. 용어는 잊어버리셔도 됩니다.<br>
 <br>
 우리가 기억할 것은 두 부분집합의 요소는 "?"로 결합되어 있다는 것입니다<br>
 <br>
- <br>
-<br>
- <br>
 <br>
 그럼 두번째 페이지로 가봅시다<br>
 <br>
@@ -91,21 +74,17 @@ https://gall.dcinside.com/mgallery/board/lists/?id=aragakiyui&page=2<br>
 첫번째 페이지에서 볼수 없었던 요소가 추가되었습니다<br>
 <br>
  <br>
-<br>
- <br>
-<br>
+```
 URL : https://gall.dcinside.com/mgallery/board/lists<br>
-<br>
-Query String(추가적 정보) :<br>
-<br>
-1) id=aragakiyui<br>
-<br>
-2) &page=2<br>
+
+Query String(추가적 정보) :
+
+1) id=aragakiyui
+
+2) &page=2
+```
 <br>
  <br>
-<br>
- <br>
-<br>
 느낌이 오시나요?<br>
 <br>
 2)의 page주소를 바꾸어 봅시다<br>
@@ -210,10 +189,6 @@ Header - General에서 필요한 정보는 Request URL과 Request Method입니�
 <br>
  <br>
 <br>
- <br>
-<br>
- <br>
-<br>
 여기까지 해당 R 명령어는 다음과 같습니다<br>
 <br>
  <br>
@@ -289,7 +264,7 @@ Elements를 클릭하고 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭
 <br>
 <br>
 #### 각키갤 링크 수집
-```
+```R
 링크_각키 <- c()                                    ## "링크_각키" 라는 빈 벡터(vector)공간을 만듭니다
 ```
 ```R
@@ -309,8 +284,6 @@ if (length(링크.각키.tmp) == 0) {
 <br>
  <br>
 <br>
- <br>
-<br>
 ```
 ※ element에 가장 앞에있는 글자(td)와 class(gall_tit.ub-word)를 점(.)으로 이어줍니다
 
@@ -321,10 +294,7 @@ if (length(링크.각키.tmp) == 0) {
 <br>
  <br>
 <br>
- <br>
-<br>
-    <br>             
-<br>
+
 ```
 해당 단계 element
 ```
@@ -351,19 +321,9 @@ if (length(링크.각키.tmp) == 0) {
   html_attr('href') %>%                                  
   unique()                    
 ```
-  <br>
-  <br>
-  <br>
 양쪽 결과는 같습니다<br>
 <br>
  <br>
-<br>
- <br>
-<br>
- <br>
-<br>
- <br>
-<br>
 제대로 구동되었는지 확인합시다<br>
 <br>
 한 페이지당 50개 게시글이 있는데 각각의 링크가 제대로 저장되었습니다<br>
@@ -371,11 +331,6 @@ if (length(링크.각키.tmp) == 0) {
 <br>
 <br>
  <br>
-<br>
- <br>
-<br>
- <br>
-<br>
 링크_각키[1] 를 실행하면 최상위 게시글의 링크를 확인할 수 있습니다<br>
 <br>
 그런데 ""/mgallery/board/view/?id=aragakiyui&no=6037&page=1" 이 링크로 접속하면 해당 게시글로 갈 수 없습니다<br>
@@ -384,10 +339,7 @@ if (length(링크.각키.tmp) == 0) {
 <br>
  <br>
 <br>
- <br>
-<br>
 아래 R명령어를 추가적으로 실행합니다<br>
-<br>
 ```R
 링크_각키 <- paste0("https://gall.dcinside.com/",링크_각키)<br>
 ```
@@ -399,16 +351,15 @@ if (length(링크.각키.tmp) == 0) {
 <br>
 각키갤 첫번째 게시글 링크를 확인 합시다<br>
 <br>
-링크_각키[1]<br>
-<br>
-> https://gall.dcinside.com//mgallery/board/view/?id=aragakiyui&no=6037&page=1
-<br>
- <br>
-<br>
- <br>
+```R
+링크_각키[1]
+
+https://gall.dcinside.com//mgallery/board/view/?id=aragakiyui&no=6037&page=1
+```
 <br>
  <br>
 <br>
+
 이제 우리는 수집한 링크를 토대로 게시글의 Element를 수집하겠습니다<br>
 <br>
 개인적으로 링크 수집 후 element 수집은 셀레니움을 선호합니다<br>
@@ -417,8 +368,7 @@ if (length(링크.각키.tmp) == 0) {
 <br>
  <br>
 <br>
- <br>
-<br>
+
 selenium(셀레니움)을 켭니다<br>
 <br>
 ```
@@ -455,10 +405,7 @@ remDr$open()
 <br>
  <br>
 <br>
- <br>
-<br>
- <br>
-<br>
+
 ## 수집하려는 요소의 벡터공간을 사전에 만듭니다<br>
 <br>
 ```R
@@ -475,8 +422,7 @@ remDr$open()
 <br>
  <br>
 <br>
- <br>
-<br>
+
 ## 각키갤 첫번째 게시글로 이동합니다<br>
 <br>
 ```R
@@ -484,8 +430,7 @@ remDr$navigate(링크_각키[1])
 ```
 <br>
 <br>
- <br>
-<br>
+
 ## 게시글의  html요소를 읽어옵니다<br>
 ```R
 body <- remDr$getPageSource()[[1]]
@@ -494,20 +439,15 @@ body <- body %>% read_html()
 ```
  <br>
 <br>
- <br>
-<br>
+
 ## 제목 수집<br>
 <br>
 F12를 누르고 클릭하여 Element의 위치를 파악합시다<br>
 <br>
 아름다운 그녀의 얼굴이 짤리지 않게 스크린샷을 찍었습니다<br>
+![gaki15](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbPfX2U%2FbtqBS7aPx5i%2F7rmnPs2OxFmgQ2lyVoOxz0%2Fimg.png)
 <br>
 <br>
- <br>
-<br>
- <br>
-<br>
- <br>
 <br>
 제목을 수집하는 명령어는 위 스크린샷을 기반으로 작성하면 다음과 같습니다<br>
 ```R
@@ -527,11 +467,8 @@ if (length(제목.각키.tmp) == 0) {
 <br>
 <br>
 <br>
- <br><br>
-<br>
- <br>
-<br>
-##작성자 수집<br>
+
+## 작성자 수집<br>
 ```R
 작성자.각키.tmp <- body %>%  
   html_nodes("div.fl") %>%  
@@ -550,7 +487,7 @@ if (length(제목.각키.tmp) == 0) {
 
  
 
-##날짜 수집<br>
+## 날짜 수집<br>
 ```R
 날짜.각키.tmp <- body %>%  
   html_nodes("span.gall_date") %>%  
@@ -563,10 +500,7 @@ if (length(날짜.각키.tmp) == 0) {
   날짜_각키 <- append(날짜_각키, 날짜.각키.tmp) 
 }  ## 수집한 작성자 없을 경우 "수동확인", 제대로 수집한 경우는 "작성자_각키"벡터 공간에 저장합니다 
 ```
- <br>
-<br>
- <br>
-<br>
+
 ## 본문 수집<br>
 ```R
 본문.각키.tmp <- body %>%  
@@ -583,9 +517,6 @@ if (length(날짜.각키.tmp) == 0) {
 <br>
 <br>
  <br>
-<br>
- <br>
-<br>
 ## 주소(URL)<br>
 ```R
 주소_각키 <- append(주소_각키, 링크_각키[1])     # 나중에 for문을 이용할때는 [1]을 바꾸어줍니다 지금은 편의상 [1]로
@@ -593,17 +524,11 @@ if (length(날짜.각키.tmp) == 0) {
  <br>
 <br>
  <br>
-<br>
- <br>
-<br>
- <br>
-<br>
+
 ## 데이터 전처리<br>
 <br>
 본문 결과를 확인해봅시다<br>
 ![gaki11](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbDB14i%2FbtqBO8CsLmV%2F86zRjlu6kbp5qzavKtTyDk%2Fimg.png)
-<br>
- <br>
 <br>
 의미를 알수 없는 역슬래쉬를 포함한 글자들이 있습니다<br>
 <br>
@@ -619,28 +544,17 @@ R 뿐만이 아니라 대부분 프로그래밍 언어는 정규표현식을 지
 <br>
 삭제 명령어는 str_replace_all( )를 이용합니다<br>
 <br>
- <br>
 ```R
 본문_각키 <- str_replace_all(본문_각키,"\n","") 
 본문_각키 <- str_replace_all(본문_각키,"\t","")
 ```
 ![gaki12](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcfhCd4%2FbtqBSOv3TwR%2Fzh1ZGrvtLF6CxPVzyOQ0t0%2Fimg.png)
 
- <br>
-<br>
-<br>
- <br>
-<br>
 쉽게 전처리를 완료하였습니다<br>
 <br>
  <br>
 <br>
- <br>
-<br>
- <br>
-<br>
- <br>
-<br>
+
 ## 데이터프레임으로 합치기 및 csv파일로 저장<br>
 <br>
  <br>
@@ -659,12 +573,7 @@ csv파일로 문제없이 저장되었습니다<br>
 <br>
  <br>
 <br>
- <br>
-<br>
- <br>
-<br>
- <br>
-<br>
+
 ## for문으로 자동화하기(중요!!)<br>
 <br>
 첫 페이지 크롤링을 모두 완료하였습니다<br>
@@ -674,8 +583,6 @@ csv파일로 문제없이 저장되었습니다<br>
 여기까지 오셨다면 어렵지 않게 구축할 수 있습니다<br>
 <br>
 다양한 방법이 있지만 for문과 tryCatch( )를 가장 많이 활용합니다<br>
-<br>
- <br>
 <br>
 아래의 R명령어로 "아라가키 유이 갤러리" 전체를 크롤링 할 수 있습니다 <br>
 <br>
@@ -848,8 +755,5 @@ write.csv(df_각키, file = "D:/df_각키.csv", row.names=FALSE)
 <br>
  <br>
 <br>
-
-<br>
-<br><br>
 결과로 나온 최종 CSV파일입니다<br>
 ![gaki14](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F32tAq%2FbtqBVgyT20U%2FC6B3QOq9721nzciXT4TNUk%2Fimg.png)

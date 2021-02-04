@@ -1,7 +1,7 @@
 ---
 title: R 크롤링 R Language / R Studio 설치
 author: Lee
-date: 2020. 2. 9. 13:02 +0900
+date: 2020-2-9 13:02 +0900
 categories: [R, Crawling]
 tags: [r, R langage, R Studio 설치, R 설치, RStudio]
 math: true

@@ -224,9 +224,9 @@ res_yui <- GET(url = 'https://gall.dcinside.com/mgallery/board/lists/',
 크롤링의 큰 그림은 이렇습니다<br>
 <br>
 ```
-1) 해당 게시글을 링크를 수집한다 (중요)<br>
-<br>
-2) 수집한 링크에서 데이터(요소 : Element)를 찾아서 수집한다<br>
+1) 해당 게시글을 링크를 수집한다 (중요)
+
+2) 수집한 링크에서 데이터(요소 : Element)를 찾아서 수집한다
 ```
 <br>
  <br>
@@ -277,11 +277,10 @@ Elements를 클릭하고 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭
   <br>
 <br>
 <br>
-#### 각키갤 링크 수집<br>
-<br>
+#### 각키갤 링크 수집
 ```
 링크_각키 <- c()                                    ## "링크_각키" 라는 빈 벡터(vector)공간을 만듭니다
-```R
+```
 ```R
 링크.각키.tmp <- res_yui %>%
   read_html() %>% 
@@ -289,12 +288,13 @@ Elements를 클릭하고 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭
   html_nodes('a:nth-child(1)') %>%  ## 게시글 링크 주소는td.gall_tit.ub-word 밑  첫번째 "a"에 있습니다 
   html_attr('href') %>%                              ## html_attr()은 해당 속성 값을 긁어옵니다
   unique()                                                   ##중복되는 링크를 제거해주는 함수입니다
-```
+
 if (length(링크.각키.tmp) == 0) {
   링크_각키 <- append(링크_각키, "수동확인")
 } else {
   링크_각키 <- append(링크_각키, 링크.각키.tmp)
 }  ## 수집한 링크가 없을경우 "수동확인", 제대로 수집한 경우는 "링크_각키" 벡터 공간에 저장합니다 
+```
 <br>
  <br>
 <br>

@@ -1,7 +1,7 @@
 ---
-title: R 다변량 통계 분석 - R 크롤링 rjava 설치하기
+title: R 크롤링 디시인사이드 (DC Inside) GET / POST + Selenium (셀레니움)
 author: Lee
-date: 2020-2-9 14:32 +0900
+date: 2020-2-10 10:49 +0900
 categories: [R, Crawling]
 tags: [GET crawling, POST crawling, r, r crawling, R language, R 크롤링, Selenium, 디시인사이드, 디시인사이드 크롤링, 셀레니움]
 math: true

@@ -10,13 +10,13 @@ image:
   src: 
 ---
 <br>
-이 페이지에서는 R language & RStudio 설치방법만 알아보겠습니다<br>
+이 페이지에서는 **R language & RStudio** 설치방법만 알아보겠습니다<br>
 <br>
  <br>
 <br>
-우선 R을 설치하기 전 권장사항이 있습니다(거의 필수)<br>
+우선 R을 설치하기 전 **권장사항**이 있습니다(거의 필수)<br>
 <br>
-사용하시는 PC / User / 작업 폴더 이름을 영어로만 지정해주세요
+**사용하시는 PC / User / 작업 폴더 이름을 영어로만 지정해주세요**
 <br>
 <br> 
 <br>
@@ -24,13 +24,13 @@ R을 포함한 다른 도구를 사용할 때도 권장합니다 <br>
 <br>
 어떤식으로든 문제가 일어나는 부분이고 실제로 꽤 많은 오류 해결법이기도 합니다<br>
 <br>
-( Code자체는 한글을 사용해도 무방합니다. 개인적으로 가독성을 위해 한글을 많이 사용하려 합니다)<br>
+(Code자체는 한글을 사용해도 무방합니다. 개인적으로 가독성을 위해 한글을 많이 사용하려 합니다)<br>
 <br>
  <br>
 <br>
  <br>
 <br>
-그럼 R language를 설치하겠습니다<br>
+그럼 **R language**를 설치하겠습니다<br>
 <br>
 https://www.r-project.org/로 이동합니다<br>
 <br>
@@ -40,7 +40,7 @@ https://www.r-project.org/로 이동합니다<br>
 <br>
 국가별 링크가 쭉 나옵니다<br>
 <br>
-어떠한 링크를 선택해도 상관없지만 가장 위 https://cloud.r-project.org/를 선택합니다<br>
+어떠한 링크를 선택해도 상관없지만 가장 위 **https://cloud.r-project.org/** 를 선택합니다<br>
 ![cloud R](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbucSte%2FbtqBQ12BSlC%2FGQ4i7OitFnke7kx4B0Kyo0%2Fimg.png)
 <br>
 <br>
@@ -52,7 +52,7 @@ https://www.r-project.org/로 이동합니다<br>
 <br>
 운영체제에 맞는 다운로드 링크를 선택합니다<br>
 <br>
-제 PC는 Windows 체제이니까 Download R for Windows를 선택하겠습니다<br>
+제 PC는 Windows 체제이니까 **Download R for Windows**를 선택하겠습니다<br>
 ![windows R](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FMktzu%2FbtqBS6JFQEA%2FdySegtX2XT8SscZ1IXikb0%2Fimg.png)
 <br>
 <br>
@@ -60,7 +60,7 @@ https://www.r-project.org/로 이동합니다<br>
 <br>
  <br>
 <br>
-우리는 R을 처음으로 설치하기에 install R forthefirst time.를 선택합니다<br>
+우리는 R을 처음으로 설치하기에 **install R forthefirst time**선택합니다<br>
 <br>
 솔직히 말해서 다른링크는 누른적이 없습니다....<br>
 ![install R](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAIlmn%2FbtqBQo5zJAT%2FNBOOIqVnIwKKrTfJDXLSkK%2Fimg.png)
@@ -126,7 +126,7 @@ R을 실행하시면 이런 창이 뜹니다<br>
 <br>
  <br>
 <br>
-보다 편리한 사용을 위해 Rstudio를 설치합니다 <br>
+보다 편리한 사용을 위해 **Rstudio**를 설치합니다 <br>
 <br>
 구글에 Rstudio를 검색하여 https://rstudio.com/products/rstudio/download/로 접속합니다<br>
 <br>
@@ -169,7 +169,7 @@ Desktop 버전을 다운로드 합니다<br>
 <br>
 RStudio를 실행해봅시다<br>
 <br>
-주의할 점이 있는데 아이콘을 우클릭하여 관리자 권한으로 실행(A)합니다<br>
+주의할 점이 있는데 **아이콘을 우클릭하여 관리자 권한으로 실행(A)합니다**<br>
 ![admin R](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FsmNFM%2FbtqBOs2eUyL%2FNPDAIsPmWh86M88dF8lxTK%2Fimg.png)
 <br>
  <br>
@@ -187,7 +187,7 @@ RStudio를 실행해봅시다<br>
 <br>
 커스터 마이징을 하고싶으시다면 <br>
 <br>
-Tools > Global Options에 들어가면 여러 옵션 적용이 가능합니다<br>
+**Tools > Global Options**에 들어가면 여러 옵션 적용이 가능합니다<br>
 <br>
 그 중에서 필수 옵션 하나만 해봅시다<br>
 ![studio R](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FKTnjY%2FbtqBOC4wgRF%2FHuybiI6Ovk9vPkMEMKPdUk%2Fimg.png)
@@ -201,7 +201,7 @@ Tools > Global Options에 들어가면 여러 옵션 적용이 가능합니다<b
 <br>
 Global Options에 들어가서<br>
 <br>
-Code를 선택하고 Soft-wrap R source files를 체크합니다<br>
+**Code를 선택하고 Soft-wrap R source files를 체크**합니다<br>
 <br>
 간단히 말해 자동 줄바꿈기능인데<br>
 <br><br>
@@ -209,7 +209,7 @@ RStudio창 크기가 바뀔때마다<br><br>
 <br>
 code을 줄을 자동적으로 바꿔주는 기능입니다<br>
 <br>
-code가 길어지는 웹 크롤링에서는 필수적이라 할 수 있는 기능입니다<br>
+**code가 길어지는 웹 크롤링에서는 필수적이라 할 수 있는 기능입니다**<br>
 ![option R](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7vPQH%2FbtqBPXf4UOH%2FkuKihnaxEBySfPkOOnOYEk%2Fimg.png)
 <br>
 <br>

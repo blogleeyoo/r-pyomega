@@ -22,18 +22,16 @@ _R과 함께하는 다변량 자료분석을 위한 추정과 검정, 최용석 
 
 다변량 통계 분석에서 정규성 검정, 시각화 방법 등에 필요한 라이브러리 입니다
 
-<span style="color:red">
-*library(MVT)
-library(MVN)
-library(dplyr)
-library(car)
-library(multifluo)*
+<span style="color:red">*library(MVT)*<br>*library(MVN)*<br>*library(dplyr)*<br>*library(car)*<br>*library(multifluo)*
  </span>.
 
 ---
 <br>
+
 ## 데이터 불러오기
+
 ---
+
 examScor 데이터를 불러옵니다
 
 원활한 분석을 위해 결측치를 제거하고
@@ -53,6 +51,7 @@ examScor %>% summary()
 ![r table1](../assets/img/items/{image}.png)
 ---
 <br>
+
 ## 각 과목별 일변량 정규성 검정
 
 과목별로 데이터 프레임을 분리합시다
@@ -99,7 +98,7 @@ abline(0,1,col="Red")
 ```r
 cor(sort_q, 메카_sort)
 ```
-<span style="color:red"> *[1] 0.9886617* </span>.
+<span style="color:red">*[1] 0.9886617*</span>
 
 
 ### Q-Q plot (2)
@@ -117,7 +116,7 @@ qqline(메카_num, col = "Blue", lwd = 2)
 
 cor(메카_sort_norm_x, 메카_sort_norm_y)
 ```
-<span style="color:red"> *[1] 0.9873895* </span>.
+<span style="color:red">*[1] 0.9873895*</span>
 
 ### Q-Q plot (3)
 좀더 다양한 옵션이 추가된 (이상치, 신뢰구간 등) 추가된 Q-Q plot을 그려봅시다
@@ -131,10 +130,7 @@ ggplot2를 이용한 Q-Q을 그리면 좀더 다양한 옵션을 시각화 할 �
 
 추가로 필요한 라이브러리는 다음과 같습니다
 
-<span style="color:red">
-*library(qqplotr)
-library(tidyverse)*
- </span>.
+<span style="color:red">*library(qqplotr)*<br>*library(tidyverse)*</span>
  
  numeric형태인 메카_num을 변수 메카_score를 가지는 Data Frame으로 변화하여 따로 저장합니다
  ```
@@ -173,12 +169,11 @@ library(tidyverse)*
 
 #### Kolmogorov-Smirnov Test
 
-<span style="color:red">
-Kolmogorov-Smirnov Test는 표본의 정규성을 검정하는 비모수 검정입니다. 비모수 검정은 데이터의 수가 정규성을 만족할 만큼 충분하다고 생각하지 않을때 적용하는 방법입니다
-</span>
+<span style="color:red">*Kolmogorov-Smirnov Test*는 표본의 정규성을 검정하는 비모수 검정입니다. 비모수 검정은 데이터의 수가 정규성을 만족할 만큼 충분하다고 생각하지 않을때 적용하는 방법입니다</span>
+
 정규성을 만족하는 개수를 어떻게 구하는가는 또 다른 수리통계학적 방법이 있는데
 
-**"표본 크기에 따른 검정력함수의 비교(최강력 검정 : Most Powerful Test, MP test)"**로 필요한 표본의 크기를 산출 할수 있습니다
+__"표본 크기에 따른 검정력함수의 비교(최강력 검정 : Most Powerful Test, MP test)"__로 필요한 표본의 크기를 산출 할수 있습니다
 
 저는 이론적으로만 접해본적 있고 구현하지는 못해봤기에 다음기회에 다뤄보기로 하겠습니다
 
@@ -191,12 +186,13 @@ ks.test(메카_num, pnorm, mean(메카_num), sd(메카_num), alternative = "two.
 <span style="color:red">
 *One-sample Kolmogorov-Smirnov test*
 </span>
-
+<br>
 <span style="color:red">
 *data:  메카_num*
 </span>
-**D = 0.092019, p-value = 0.4455**
-
+<br>
+__D = 0.092019, p-value = 0.4455__
+<br>
 <span style="color:red">
 *alternative hypothesis: two-sided*
 </span>
@@ -210,14 +206,17 @@ H0을 기각하지 못합니다
 
 Shapiro-Wilk Test는 표본의 정규성을 검정하는 모수적 검정입니다. 표본의 수가 충분할 경우 적용합니다
 
-'''
+```
 shapiro.test(메카_num)
-'''
+```
 <span style="color:red">
-*Shapiro-Wilk normality test
-
-data:  메카_num*
+*Shapiro-Wilk normality test*
 </span>
+<br>
+<span style="color:red">
+*data:  메카_num*
+</span>
+<br>
 **W = 0.97241, p-value = 0.05708**
 
  

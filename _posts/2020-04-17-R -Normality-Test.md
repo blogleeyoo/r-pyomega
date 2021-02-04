@@ -16,15 +16,13 @@ _R과 함께하는 다변량 자료분석을 위한 추정과 검정, 최용석 
 아래 내용은 <R과 함께하는 다변량 자료분석을 위한 추정과 검정, 최용석 지음, 2019>에서 대부분 발췌하였습니다.
 
 ## 라이브러리 
----
 
 ![full armor unicorn gundam](../assets/img/items/{image}.png)
 
 다변량 통계 분석에서 정규성 검정, 시각화 방법 등에 필요한 라이브러리 입니다
 
->*library(MVT)*<br>*library(MVN)*<br>*library(dplyr)*<br>*library(car)*<br>*library(multifluo)*
+*library(MVT)*<br>*library(MVN)*<br>*library(dplyr)*<br>*library(car)*<br>*library(multifluo)*
 
----
 <br>
 
 ## 데이터 불러오기
@@ -48,7 +46,7 @@ examScor %>% summary()
 ```
 
 ![r table1](../assets/img/items/{image}.png)
----
+
 <br>
 
 ## 각 과목별 일변량 정규성 검정
@@ -74,6 +72,7 @@ examScor %>% summary()
 
 각각에 대해 정규성 검정 및 시각화를 해봅시다
 
+<br>
 ### Q-Q plot (1)
 
 Q-Q plot에 대해서는 아래 위키백과를 참고해주세요
@@ -99,7 +98,7 @@ cor(sort_q, 메카_sort)
 ```
 *[1] 0.9886617*
 
-
+<br>
 ### Q-Q plot (2)
 qqnorm()으로 Q-Q plot을 그려보겠습니다
 ```r
@@ -117,6 +116,7 @@ cor(메카_sort_norm_x, 메카_sort_norm_y)
 ```
 *[1] 0.9873895*
 
+<br>
 ### Q-Q plot (3)
 좀더 다양한 옵션이 추가된 (이상치, 신뢰구간 등) 추가된 Q-Q plot을 그려봅시다
 ```r

@@ -32,8 +32,8 @@ image:
 웹 크롤링을 처음 시작하시는 분들은 모르는 용어가 많아 감 잡기도 어려울수 있습니다.(글쓴이도 마찬가지) 특히 HTML관련 용어는 데이터 과학을 하셨던 분들이라도 생소하실껍니다.
 쉽게 말해 웹 크롤링의 프로세스는 손님이 데이터를 요청하고 서버가 주문에 따라 해당 객체 내어주는 패스트푸드점 유사하다고 할 수 있겠습니다
 
-![browser server](/r-pyomega/assets/img/items/browser server.png)
-![browser server](../../assets/img/items/browser server.png)
+![browser server](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcjgvOX%2FbtqBNMmjOPV%2FNoNtOI6vYXvmRwiiGmTPs1%2Fimg.png)
+![browser server](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcjgvOX%2FbtqBNMmjOPV%2FNoNtOI6vYXvmRwiiGmTPs1%2Fimg.png)
 출처 : http://blog.daum.net/dosman1/2173
 
 

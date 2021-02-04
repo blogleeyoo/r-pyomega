@@ -49,7 +49,7 @@ google_site_verification: aZ84qICLnZy2hwJtCJ3MO8UiqQUJqSiIr_rjNvio28M # change t
 # --------------------------
 
 google_analytics:
-  id: 'blogleeyoo'          # Fill with your Google Analytics ID
+  id: 'G-DPEJ8VCCT4'          # Fill with your Google Analytics ID
   pv:
     # The Google Analytics pageviews switch.
     # DO NOT enable it unless you know how to deploy the Google Analytics superProxy.

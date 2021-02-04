@@ -1,5 +1,5 @@
 ---
-title: [Python] 기본 개발 환경 구축
+title: Python 기본 개발 환경 구축
 author: Yoo
 date: 2020-02-04 00:33:00 +0900
 categories: [python, 개발 준비]

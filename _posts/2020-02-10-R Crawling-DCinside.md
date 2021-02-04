@@ -38,6 +38,7 @@ install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")
 해당 사이트는 구조가 복잡하지 않고 게시글 숫자가 많지 않아 연습으로 제격입니다 <br>
 (사심이 많이 들어갔네요 하하)<br>
 ![gaki1](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbM0PlP%2FbtqBO8oWVaY%2Fsn5wfw7t06z6GzeVzI0fEk%2Fimg.gif)
+<br>
 유난히 사진이 빛이 나보이는건 기분 탓이겠죠?<br>
  <br>
 <br>

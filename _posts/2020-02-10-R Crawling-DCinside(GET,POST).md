@@ -2,7 +2,7 @@
 title: R 크롤링 디시인사이드 (DC Inside) GET / POST 방식
 author: Lee
 date: 2020-02-10 13:25 +0900
-categories: [R, Crwaling]
+categories: [R, Crawling]
 tags: [GET crawling, POST crawling, r, r crawling, R language, R 크롤링, Selenium, 디시인사이드, 디시인사이드 크롤링, 셀레늄]
 math: true
 mermaid: true

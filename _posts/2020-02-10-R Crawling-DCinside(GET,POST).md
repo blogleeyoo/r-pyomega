@@ -16,6 +16,13 @@ image:
 <br>
 <br>
 ```R
+· library(dplyr)
+· library(httr)
+· library(jsonlite)
+· library(rJava)
+· library(RSelenium)
+· library(stringr)
+
 #### 각키갤 GET/POST방식 
 
 링크_각키 <- c()  

@@ -3,7 +3,7 @@ title: R 크롤링 디시인사이드 (DC Inside) GET / POST 방식
 author: Lee
 date: 2020-02-10 13:25 +0900
 categories: [R, Crwaling]
-tags: [Kolmogorov-Smirnov test, Multivariate, Normality Test, Q-Q plot, qqplotr, Shapiro-Wilk test, 다변량, 다변량 통계, 일변량, 정규성 검정]
+tags: [GET crawling, POST crawling, r, r crawling, R language, R 크롤링, Selenium, 디시인사이드, 디시인사이드 크롤링, 셀레늄]
 math: true
 mermaid: true
 image:

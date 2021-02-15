@@ -588,12 +588,13 @@ clien_갤럭시폴드_댓글 <- data.frame(댓글_cl)
 write.csv(clien_갤럭시폴드_본문, file = "D:/clien_갤럭시폴드_본문.csv", row.names=FALSE) 
 write.csv(clien_갤럭시폴드_댓글, file = "D:/clien_갤럭시폴드_댓글.csv", row.names=FALSE) 
 ```
-<br>
+
+
 최종결과로 csv저장된 파일입니다
 ![clien07](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb3fG0z%2FbtqBUUce1bh%2FQHYfEs877ZzUudRQlHQVN0%2Fimg.png)
 클리앙 : 날짜 제목 본문 조회수 댓글수 주소
 ![clien08](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiGClR%2FbtqBVMrfgnx%2FlkbYyOA6gn0fLPsNHY2D80%2Fimg.png)
 클리앙 : 댓글
-<br>
+
 다음 포스팅은 GET/POST방법으로만 클리앙(Clien)을 크롤링 하겠습니다
 

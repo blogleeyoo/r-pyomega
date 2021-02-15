@@ -17,6 +17,7 @@ image:
 <br>
 크롤링에 필요한 패키지(package)와 라이브러리(library)는 아래와 같습니다
  <br>
+ 
 ```R
 install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")
 
@@ -27,6 +28,7 @@ install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr")
 · library(RSelenium)
 · library(stringr)
 ```
+
 <br>
 <br>
 클리앙에 접속하여 통합검색 창에 "갤럭시 폴드"를 검색합니다

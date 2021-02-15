@@ -1,0 +1,5 @@
+User-agent: *
+
+Disallow: /norobots/
+
+Sitemap: https://blogleeyoo.github.io/r-pyomega/sitemap.xml

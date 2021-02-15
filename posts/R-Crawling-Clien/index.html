@@ -1,0 +1,657 @@
+<!DOCTYPE html><html lang="ko-KR" mode="dark" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="pv-cache-enabled" content="false"><meta name="generator" content="Jekyll v4.2.0" /><meta property="og:title" content="R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움)" /><meta name="author" content="Lee" /><meta property="og:locale" content="ko_KR" /><meta name="description" content="클리앙에서 “갤럭시 폴드” 통합검색 결과를 크롤링 해보겠습니다 크롤링에 필요한 패키지(package)와 라이브러리(library)는 아래와 같습니다 ```R install.packages(c(“dplyr”, “httr”, “jsonlite”, “rJava”, “RSelenium”, “stringr”)" /><meta property="og:description" content="클리앙에서 “갤럭시 폴드” 통합검색 결과를 크롤링 해보겠습니다 크롤링에 필요한 패키지(package)와 라이브러리(library)는 아래와 같습니다 ```R install.packages(c(“dplyr”, “httr”, “jsonlite”, “rJava”, “RSelenium”, “stringr”)" /><link rel="canonical" href="https://blogleeyoo.github.io/r-pyomega/posts/R-Crawling-Clien/" /><meta property="og:url" content="https://blogleeyoo.github.io/r-pyomega/posts/R-Crawling-Clien/" /><meta property="og:site_name" content="R-Pyomega" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2020-02-11T17:01:00+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움)" /><meta name="twitter:site" content="@blogleeyoo" /><meta name="twitter:creator" content="@Lee" /><meta name="google-site-verification" content="aZ84qICLnZy2hwJtCJ3MO8UiqQUJqSiIr_rjNvio28M" /> <script type="application/ld+json"> {"mainEntityOfPage":{"@type":"WebPage","@id":"https://blogleeyoo.github.io/r-pyomega/posts/R-Crawling-Clien/"},"description":"클리앙에서 “갤럭시 폴드” 통합검색 결과를 크롤링 해보겠습니다 크롤링에 필요한 패키지(package)와 라이브러리(library)는 아래와 같습니다 ```R install.packages(c(“dplyr”, “httr”, “jsonlite”, “rJava”, “RSelenium”, “stringr”)","url":"https://blogleeyoo.github.io/r-pyomega/posts/R-Crawling-Clien/","@type":"BlogPosting","headline":"R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움)","dateModified":"2021-02-15T11:29:42+09:00","datePublished":"2020-02-11T17:01:00+09:00","author":{"@type":"Person","name":"Lee"},"@context":"https://schema.org"}</script><title>R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움) | R-Pyomega</title><link rel="shortcut icon" href="/r-pyomega/assets/img/favicons/favicon.ico" type="image/x-icon"><link rel="icon" href="/r-pyomega/assets/img/favicons/favicon.ico" type="image/x-icon"><link rel="apple-touch-icon" href="/r-pyomega/assets/img/favicons/apple-icon.png"><link rel="apple-touch-icon" href="/r-pyomega/assets/img/favicons/apple-icon-precomposed.png"><link rel="apple-touch-icon" sizes="57x57" href="/r-pyomega/assets/img/favicons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/r-pyomega/assets/img/favicons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/r-pyomega/assets/img/favicons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/r-pyomega/assets/img/favicons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/r-pyomega/assets/img/favicons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/r-pyomega/assets/img/favicons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/r-pyomega/assets/img/favicons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/r-pyomega/assets/img/favicons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/r-pyomega/assets/img/favicons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/r-pyomega/assets/img/favicons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/r-pyomega/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/r-pyomega/assets/img/favicons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/r-pyomega/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/r-pyomega/assets/img/favicons/manifest.json"><meta name='msapplication-config' content='/r-pyomega/assets/img/favicons/browserconfig.xml'><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/r-pyomega/assets/img/favicons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials"><link rel="dns-prefetch" href="https://www.google-analytics.com"><link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="preconnect" href="cdn.jsdelivr.net"><link rel="dns-prefetch" href="cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"><link rel="stylesheet" href="/r-pyomega/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.15.0,npm/bootstrap@4/dist/js/bootstrap.min.js"></script> <script defer src="/r-pyomega/assets/js/dist/post.min.js"></script> <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> <script defer src="/r-pyomega/app.js"></script> <script defer src="https://www.googletagmanager.com/gtag/js?id=G-DPEJ8VCCT4"></script> <script> document.addEventListener("DOMContentLoaded", function(event) { window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-DPEJ8VCCT4'); }); </script><body data-spy="scroll" data-target="#toc"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/r-pyomega/" alt="avatar" class="mx-auto"> <img src="/r-pyomega/assets/img/items/logo2.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/r-pyomega/">R-Pyomega</a></div><div class="site-subtitle font-italic">R/Python은 겉치레가 아니야</div></div><ul class="w-100"><li class="nav-item"> <a href="/r-pyomega/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/r-pyomega/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/r-pyomega/tags/" class="nav-link"> <i class="fa-fw fas fa-tags ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/r-pyomega/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/r-pyomega/about/" class="nav-link"> <i class="fa-fw fas fa-info ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center"> <a href="https://github.com/blogleeyoo" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github-alt"></i> </a> <a href="https://twitter.com/blogleeyoo" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['blogleeyoo','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/r-pyomega/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center topbar-down"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/r-pyomega/"> Posts </a> </span> <span>R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움)</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" placeholder="Search..."> <i class="fa fa-times-circle fa-fw" id="search-cleaner"></i> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="post-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움)</h1><div class="post-meta text-muted d-flex flex-column"><div> <span class="timeago " data-toggle="tooltip" data-placement="bottom" title="Tue, Feb 11, 2020, 5:01 PM +0900" > Feb 11, 2020 <i class="unloaded">2020-02-11T17:01:00+09:00</i> </span> by <span class="author"> Lee </span></div><div> <span> Updated <span class="timeago lastmod" data-toggle="tooltip" data-placement="bottom" title="Mon, Feb 15, 2021, 11:29 AM +0900" > Feb 15 <i class="unloaded">2021-02-15T11:29:42+09:00</i> </span> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="3216 words">17 min</span></div></div><div class="post-content"><p><br /> <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcpT0w9%2FbtqBS5SVo1x%2Fk5RiKEutamV02qAukYsU7K%2Fimg.jpg" alt="galaxy01" /> <br /> 클리앙에서 “갤럭시 폴드” 통합검색 결과를 크롤링 해보겠습니다 <br /> 크롤링에 필요한 패키지(package)와 라이브러리(library)는 아래와 같습니다 <br /></p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre><td class="rouge-code"><pre><span class="n">install.packages</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"dplyr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"httr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"jsonlite"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rJava"</span><span class="p">,</span><span class="w"> </span><span class="s2">"RSelenium"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stringr"</span><span class="p">)</span><span class="w">
+
+</span><span class="err">·</span><span class="w"> </span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="err">·</span><span class="w"> </span><span class="n">library</span><span class="p">(</span><span class="n">httr</span><span class="p">)</span><span class="w">
+</span><span class="err">·</span><span class="w"> </span><span class="n">library</span><span class="p">(</span><span class="n">jsonlite</span><span class="p">)</span><span class="w">
+</span><span class="err">·</span><span class="w"> </span><span class="n">library</span><span class="p">(</span><span class="n">rJava</span><span class="p">)</span><span class="w">
+</span><span class="err">·</span><span class="w"> </span><span class="n">library</span><span class="p">(</span><span class="n">RSelenium</span><span class="p">)</span><span class="w">
+</span><span class="err">·</span><span class="w"> </span><span class="n">library</span><span class="p">(</span><span class="n">stringr</span><span class="p">)</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> 클리앙에 접속하여 통합검색 창에 “갤럭시 폴드”를 검색합니다 <br /> https://www.clien.net/service/search?q=갤럭시%20폴드 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbz5NB5%2FbtqBTMS3myf%2FOOjPU3G7QakJTSNcRjssdK%2Fimg.png" alt="clien01" /> <br /> <br /> https://www.clien.net/service/search?q=갤럭시%20폴드 <br /> URL을 분리해봅시다 <br /> <br /> <br /> URL : https://www.clien.net/service/search <br /> Query String(추가적 정보) : <br /> 1) q=갤럭시%20폴드 <br /> <br /> <br /> 어떤 구조인지는 알겠는데 뭔가 부족한 느낌을 지울수 없습니다 <br /> 그러면 2번째 페이지로 가봅시다 <br /> https://www.clien.net/service/search?q=갤럭시%20폴드&amp;sort=recency&amp;p=1&amp;boardCd=&amp;isBoard=false <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcHyYVf%2FbtqBVeBi6br%2FwXFNgFDeUZuVdMCH5AD9W0%2Fimg.png" alt="clien02" /> <br /> URL에 추가적인 꼬리가 더 붙었습니다 다시 분리해봅시다 <br /> <br /> <br /> URL : https://www.clien.net/service/search <br /> Query String(추가적 정보) : “&amp;”로 분리 <br /> 1) q=갤럭시%20폴드 #### 검색어 <br /> 2) sort=recency #### sort를 recency로 합니다(즉, 최신순 정렬이죠) <br /> 3) p=1 #### 첫번째 페이지란 뜻입니다 Query String에서 p는 페이지 정보일때가 많습니다 <br /> 4) boardCd= <br /> 5) isBoard=false <br /> <br /> 다시 첫번째 페이지로 돌아가봅시다 <br /> https://www.clien.net/service/search?q=갤럭시%20폴드&amp;sort=recency&amp;p=0&amp;boardCd=&amp;isBoard=false URL이 뭔가 달라졌습니다 다시 분리 해봅시다 <br /> <br /> URL : https://www.clien.net/service/search <br /> Query String(추가적 정보) : “&amp;”로 분리 <br /> 1) q=갤럭시%20폴드 #### 검색어 <br /> 2) sort=recency #### 최신순 정렬 <br /> 3) p=0 #### 0번째 페이지란 뜻입니다 <br /> 4) boardCd= <br /> 5) isBoard=false <br /> <br /> 클리앙은 독특하게 1페이지 정보가 0입니다 <br /> 그래도 크롤링에는 문제가 없습니다 <br /> <br /> F12를 눌러봅시다 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FnuzP2%2FbtqBVM5F5NE%2FNqK7IQ7yfItVWgeaFTU5MK%2Fimg.png" alt="clien03" /> <br /> <br /> 가장 위 정보를 클릭합시다 <br /> 찾지 못할경우 페이지 새로고침(F5)를 누르십시요 <br /> Header - General에서 필요한 정보는 Request URL과 Request Method입니다 <br /> 아래로 내려가 Query String Parameter로 가서 정보를 확인합니다 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbu7qQE%2FbtqBSOw6Bfu%2FokKgZR9MkcujB5vhJbZ9h0%2Fimg.png" alt="clien04" /> <br /> 이 정보를 바탕으로 HTTP 요청 및 응답 명령어(code)를 작성합니다 <br /> <br /></p><h3 id="http-요청-및-응답">HTTP 요청 및 응답</h3><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="n">searchword</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"갤럭시 폴드"</span><span class="w">
+
+ 
+
+  </span><span class="n">res_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">GET</span><span class="p">(</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://www.clien.net/service/search"</span><span class="p">,</span><span class="w"> 
+                </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">searchword</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">sort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"recency"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">boardCd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">              </span><span class="c1">## boardCd: 에는 정보가 없는데, ""로 처리하면 됩니다</span><span class="w">
+                             </span><span class="n">isBoard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"false"</span><span class="p">)</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> 크롤링의 큰 그림을 설명하겠습니다 <br /> 1) 해당 게시글을 링크를 수집한다 (중요) <br /> 2) 수집한 링크에서 데이터(요소 : Element)를 찾아서 수집한다 <br /> <br /> <br /> 좀 더 풀어서 설명하면 <br /> 1) 1페이지의 링크를 수집 <br /> 2) 수집한 링크를 타고가서 해당요소를 수집 <br /> 3) for문(자동화)으로 검색한 결과 전체 크롤링 <br /> <br /> <br /> 그러면 1)에 따라 링크를 수집합니다 <br /> 링크를 수집하기 위해 element를 확인합니다 <br /> F12에서 보이는 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭하고 게시글 제목을 클릭합니다 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbPJJ8a%2FbtqBQ1wZW7A%2FVYB2ILG5eyJTaPiwYd9FJ0%2Fimg.png" alt="clien05" /> <br /> 위 정보를 바탕으로 링크를 수집해봅시다 <br /></p><h2 id="링크">링크</h2><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre><span class="n">링크_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w">                                                     </span><span class="c1">## 수집한 링크를 담을 빈 벡터 공간을 만듭니다</span><span class="w">
+
+   
+  </span><span class="n">링크.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res_cl</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+    </span><span class="n">read_html</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+    </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"a.subject_fixed"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">        </span><span class="c1">##링크 주소 바로 위에 있는 Element입니다 </span><span class="w">
+    </span><span class="n">html_attr</span><span class="p">(</span><span class="s2">"href"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">                              </span><span class="c1">## href="링크주소"를 긁는 명령어입니다</span><span class="w">
+    </span><span class="n">unique</span><span class="p">()</span><span class="w">                                                       </span><span class="c1">##중복되는 링크를 제거해주는 함수입니다</span><span class="w">
+  
+
+  </span><span class="n">링크.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="s2">"https://www.clien.net"</span><span class="p">,</span><span class="n">링크.tmp</span><span class="p">)</span><span class="w">    </span><span class="c1">### 수집한 링크 앞에 "https://www.clien.net"를 넣어줍니다</span><span class="w">
+
+   
+  </span><span class="n">링크_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">링크.tmp</span><span class="p">,</span><span class="n">링크_cl</span><span class="p">)</span><span class="w">  
+</span></pre></table></code></div></div><p><br /> <br /> 링크 수집을 완료하였습니다 <br /> 이번에는 링크를 타고 들어가기 전에 날짜도 수집합시다 <br /> F12에서 보이는 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭하고 게시글 날짜를 클릭합니다 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdFihUD%2FbtqBUAdWHIy%2FKpxdNs0WV0MNtONn3h3I8k%2Fimg.png" alt="clien06" /> <br /> <br /> element정보를 보니 <br /> span.time popover에는 13:29 <br /> span.timestamp에는 2020-02-11 13:29:49가 있습니다 <br /> 날짜까지 포함한 element인 후자를 선택합시다 <br /> <br /> ##날짜</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="n">날짜_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w">                                                   </span><span class="c1">## 수집한 날짜를 담을 빈 벡터 공간을 만듭니다</span><span class="w">
+
+   
+  </span><span class="n">날짜.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res_cl</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+    </span><span class="n">read_html</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+    </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"span.timestamp"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_text</span><span class="p">()</span><span class="w">  
+   
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">날짜.tmp</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="n">날짜_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">날짜_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="n">날짜_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">날짜_cl</span><span class="p">,</span><span class="w"> </span><span class="n">날짜.tmp</span><span class="p">)</span><span class="w"> 
+  </span><span class="p">}</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> 그럼 이제 수집한 링크를 타고가서 <br /> “제목”, “본문”, “조회수”, “댓글수” 그리고 이번엔 “댓글”까지도 크롤링합시다 <br /> 크롤링한 페이지의 링크는 따로 저장하기 위해 “주소”로 저장합니다 <br /> <br /> <br /> 크롤링 하기로한 element 이름으로 빈 벡터공간을 만듭니다</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w">
+
+</span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w">
+
+</span><span class="n">조회수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w">
+
+</span><span class="n">댓글수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w">
+
+</span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+
+</span><span class="n">주소_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> 그리고 셀레니움을 켭니다 <br /> 명령프롬프트를 키고</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>1) cd C:\r_selenium 
+2) java -Dwebdriver.gecko.driver="geckodriver.exe" -jar selenium-server-standalone-4.0.0-alpha-1.jar -port 4445를 입력합니다
+</pre></table></code></div></div><p><br /> <br /> <br /></p><h2 id="rselenium">RSelenium</h2><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="n">remDr</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">remoteDriver</span><span class="p">(</span><span class="n">remoteServerAddr</span><span class="o">=</span><span class="s2">"localhost"</span><span class="p">,</span><span class="w"> 
+                      </span><span class="n">port</span><span class="o">=</span><span class="m">4445L</span><span class="p">,</span><span class="w"> 
+                      </span><span class="n">browserName</span><span class="o">=</span><span class="s2">"chrome"</span><span class="p">)</span><span class="w">
+</span><span class="n">remDr</span><span class="o">$</span><span class="n">open</span><span class="p">()</span><span class="w">
+</span></pre></table></code></div></div><p>링크와 게시글 제목을 수집한것 처럼 <br /> F12에서 보이는 제일 왼쪽 위 아이콘(Ctrl + Shift + C)을 클릭하고 수집하려는 element를 클릭합니다 <br /> <br /> <br /> 스크린샷은 생략하겠습니다 <br /> 아래는 element를 수집하는 명령어입니다 <br /> 사전에 수집한 링크의 첫번째 페이지를 수집합니다</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">링크_cl</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">https</span><span class="o">://</span><span class="n">www.clien.net</span><span class="o">/</span><span class="n">service</span><span class="o">/</span><span class="n">board</span><span class="o">/</span><span class="n">kin</span><span class="o">/</span><span class="m">14581236</span><span class="o">?</span><span class="n">combine</span><span class="o">=</span><span class="n">true</span><span class="o">&amp;</span><span class="n">q</span><span class="o">=%EA%</span><span class="n">B0</span><span class="o">%A4%</span><span class="n">EB</span><span class="o">%9F%</span><span class="n">AD</span><span class="o">%EC%</span><span class="m">8</span><span class="n">B</span><span class="o">%9C+%</span><span class="n">ED</span><span class="o">%8F%</span><span class="n">B4</span><span class="o">%EB%</span><span class="m">93</span><span class="o">%</span><span class="m">9</span><span class="n">C</span><span class="o">&amp;</span><span class="n">p</span><span class="o">=</span><span class="m">0</span><span class="o">&amp;</span><span class="n">sort</span><span class="o">=</span><span class="n">recency</span><span class="o">&amp;</span><span class="n">boardCd</span><span class="o">=&amp;</span><span class="w">
+</span></pre></table></code></div></div><p><br /></p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="n">remDr</span><span class="o">$</span><span class="n">navigate</span><span class="p">(</span><span class="n">링크_cl</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="w">                          </span><span class="c1">## 링크_cl[1]에 할당된 URL를 탐색합니다</span><span class="w">
+</span><span class="n">body</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">remDr</span><span class="o">$</span><span class="n">getPageSource</span><span class="p">()[[</span><span class="m">1</span><span class="p">]]</span><span class="w">          </span><span class="c1">## URL page Source를 가져옵니다</span><span class="w">
+</span><span class="n">body</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">read_html</span><span class="p">()</span><span class="w">                  </span><span class="c1">## html를 읽어들입니다</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> ##제목</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="w">    </span><span class="n">제목.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"h3.post_subject"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+       
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">제목_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">제목_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">제목_cl</span><span class="p">,</span><span class="w"> </span><span class="n">제목.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> ##본문</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="w">     </span><span class="n">본문.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"div.post_article"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+     
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">본문_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">본문_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">본문_cl</span><span class="p">,</span><span class="w"> </span><span class="n">본문.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> ##조회수</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="n">조회수.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"span.view_count"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+     
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">조회수_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">조회수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">조회수_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">조회수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">조회수_cl</span><span class="p">,</span><span class="w"> </span><span class="n">조회수.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> ##댓글수</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="n">댓글수.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s1">'div.comment_head'</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+     
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">댓글수_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">댓글수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">댓글수_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">댓글수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">댓글수_cl</span><span class="p">,</span><span class="w"> </span><span class="n">댓글수.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> ##댓글</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="n">댓글.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"div.comment_view"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+     
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">댓글_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">댓글_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">댓글_cl</span><span class="p">,</span><span class="w"> </span><span class="n">댓글.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> 
+</span></pre></table></code></div></div><p><br /> <br /> ##주소</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre><span class="n">주소_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">주소_cl</span><span class="p">,</span><span class="w"> </span><span class="n">링크_cl</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> 수집한요소를 전처리 합시다</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">제목_cl</span><span class="p">)</span><span class="w"> 
+</span><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">제목_cl</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">본문_cl</span><span class="p">)</span><span class="w"> 
+</span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">본문_cl</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">조회수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\\D"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">조회수_cl</span><span class="p">)</span><span class="w">             </span><span class="c1">## "\\D"은 숫자가 아닌 문자를 선택하는 정규표현식입니다</span><span class="w">
+
+</span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">댓글_cl</span><span class="p">)</span><span class="w"> 
+</span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">댓글_cl</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">댓글수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\\D"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">댓글수_cl</span><span class="p">)</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /> 수집한 element를 df로 만들어 csv파일로 저장합니다</p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="n">clien_갤럭시폴드_본문</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">날짜_cl</span><span class="p">,</span><span class="w"> </span><span class="n">제목_cl</span><span class="p">,</span><span class="w"> </span><span class="n">본문_cl</span><span class="p">,</span><span class="w"> </span><span class="n">조회수_cl</span><span class="p">,</span><span class="w"> </span><span class="n">댓글수_cl</span><span class="p">,</span><span class="w"> </span><span class="n">주소_cl</span><span class="p">)</span><span class="w">   
+</span><span class="n">clien_갤럭시폴드_댓글</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">댓글_cl</span><span class="p">)</span><span class="w">  
+
+</span><span class="n">write.csv</span><span class="p">(</span><span class="n">clien_갤럭시폴드_본문</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"D:/clien_갤럭시폴드_본문.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> 
+</span><span class="n">write.csv</span><span class="p">(</span><span class="n">clien_갤럭시폴드_댓글</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"D:/clien_갤럭시폴드_댓글.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></pre></table></code></div></div><p><br /> <br /></p><h2 id="for문으로-자동화하기중요">for문으로 자동화하기(중요!!)</h2><p><br /> 첫 페이지 크롤링을 모두 완료하였습니다 <br /> for문과 tryCatch( )를 사용하여 모든 페이지를 크롤링합니다 <br /> 아래의 R명령어로 검색결과 전체를 크롤링 및 전처리, csv로 저장 할 수 있습니다 <br /></p><div class="language-R highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+</pre><td class="rouge-code"><pre><span class="c1">#####링크 수집</span><span class="w">
+
+
+</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">50</span><span class="w"> 
+</span><span class="n">searchword</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"갤럭시 폴드"</span><span class="w"> 
+
+</span><span class="n">링크_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+</span><span class="n">날짜_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">0</span><span class="o">:</span><span class="n">n</span><span class="p">){</span><span class="w"> 
+  </span><span class="n">tryCatch</span><span class="p">({</span><span class="w"> 
+  </span><span class="n">res_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">GET</span><span class="p">(</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://www.clien.net/service/search"</span><span class="p">,</span><span class="w"> 
+                </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">searchword</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">sort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"recency"</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">boardCd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> 
+                             </span><span class="n">isBoard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"false"</span><span class="p">))</span><span class="w"> 
+   
+  </span><span class="n">cat</span><span class="p">(</span><span class="s1">'현재'</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="s1">'페이지 수집 중! 상태코드는'</span><span class="p">,</span><span class="w"> </span><span class="n">status_code</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res_cl</span><span class="p">),</span><span class="w"> </span><span class="s1">'입니다.\n'</span><span class="p">)</span><span class="w"> 
+   
+  </span><span class="c1">##링크 </span><span class="w">
+   
+  </span><span class="n">링크.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res_cl</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+    </span><span class="n">read_html</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+    </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"a.subject_fixed"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_attr</span><span class="p">(</span><span class="s2">"href"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">unique</span><span class="p">()</span><span class="w"> 
+   
+  </span><span class="n">링크.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="s2">"https://www.clien.net"</span><span class="p">,</span><span class="n">링크.tmp</span><span class="p">)</span><span class="w"> 
+   
+  </span><span class="n">링크_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">링크.tmp</span><span class="p">,</span><span class="n">링크_cl</span><span class="p">)</span><span class="w">  
+   
+   
+   
+  </span><span class="c1">##날짜 </span><span class="w">
+   
+  </span><span class="n">날짜.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res_cl</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+    </span><span class="n">read_html</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+    </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"span.timestamp"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">html_text</span><span class="p">()</span><span class="w">  
+   
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">날짜.tmp</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="n">날짜_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">날짜_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="n">날짜_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">날짜_cl</span><span class="p">,</span><span class="w"> </span><span class="n">날짜.tmp</span><span class="p">)</span><span class="w"> 
+  </span><span class="p">}</span><span class="w"> 
+   
+   
+  </span><span class="n">Sys.sleep</span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">  </span><span class="c1">## (중요!) 반복되는 작업으로 디도스(DDOS)로 오인 받지 않을려면 반드시 넣습니다!!</span><span class="w">
+   
+  </span><span class="p">},</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="n">cat</span><span class="p">(</span><span class="s2">"불러올 수 없습니다!\n"</span><span class="p">))</span><span class="w"> 
+   
+</span><span class="p">}</span><span class="w"> 
+
+
+
+
+</span><span class="c1">## 명령프롬프트 실행</span><span class="w">
+
+
+</span><span class="c1">#cd C:\r_selenium </span><span class="w">
+</span><span class="c1"># java -Dwebdriver.gecko.driver="geckodriver.exe" -jar selenium-server-standalone-4.0.0-alpha-1.jar -port 4445 </span><span class="w">
+
+ 
+
+
+</span><span class="c1">## RSelenium </span><span class="w">
+
+</span><span class="n">remDr</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">remoteDriver</span><span class="p">(</span><span class="n">remoteServerAddr</span><span class="o">=</span><span class="s2">"localhost"</span><span class="p">,</span><span class="w">  
+                      </span><span class="n">port</span><span class="o">=</span><span class="m">4445L</span><span class="p">,</span><span class="w">  
+                      </span><span class="n">browserName</span><span class="o">=</span><span class="s2">"chrome"</span><span class="p">)</span><span class="w"> 
+</span><span class="n">remDr</span><span class="o">$</span><span class="n">open</span><span class="p">()</span><span class="w"> 
+
+
+
+</span><span class="c1">## 제목 본문 댓글 조회수 댓글수 주소 </span><span class="w">
+
+</span><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+</span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+</span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+</span><span class="n">조회수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+</span><span class="n">댓글수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+</span><span class="n">주소_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w"> 
+
+
+  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">403</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">링크_cl</span><span class="p">)){</span><span class="w"> 
+  </span><span class="n">tryCatch</span><span class="p">({</span><span class="w"> 
+    </span><span class="n">remDr</span><span class="o">$</span><span class="n">navigate</span><span class="p">(</span><span class="n">링크_cl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> 
+    </span><span class="n">body</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">remDr</span><span class="o">$</span><span class="n">getPageSource</span><span class="p">()[[</span><span class="m">1</span><span class="p">]]</span><span class="w"> 
+     
+    </span><span class="n">cat</span><span class="p">(</span><span class="s1">'현재'</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="s1">'페이지 수집 중! \n'</span><span class="p">)</span><span class="w">  
+     
+    </span><span class="n">body</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">read_html</span><span class="p">()</span><span class="w"> 
+     
+     
+    </span><span class="c1">##제목 </span><span class="w">
+     
+    </span><span class="n">제목.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"h3.post_subject"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+       
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">제목_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">제목_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">제목_cl</span><span class="p">,</span><span class="w"> </span><span class="n">제목.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> 
+     
+     
+    </span><span class="c1">##본문 </span><span class="w">
+     
+    </span><span class="n">본문.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"div.post_article"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+     
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">본문_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">본문_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">본문_cl</span><span class="p">,</span><span class="w"> </span><span class="n">본문.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> 
+     
+     
+     
+    </span><span class="c1">##댓글 </span><span class="w">
+     
+    </span><span class="n">댓글.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"div.comment_view"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+     
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">댓글_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">댓글_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">댓글_cl</span><span class="p">,</span><span class="w"> </span><span class="n">댓글.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> 
+     
+     
+    </span><span class="c1">##조회수 </span><span class="w">
+     
+    </span><span class="n">조회수.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s2">"span.view_count"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+     
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">조회수_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">조회수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">조회수_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">조회수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">조회수_cl</span><span class="p">,</span><span class="w"> </span><span class="n">조회수.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> 
+     
+     
+    </span><span class="c1">##댓글수 </span><span class="w">
+     
+    </span><span class="n">댓글수.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+      </span><span class="n">html_nodes</span><span class="p">(</span><span class="s1">'div.comment_head'</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+      </span><span class="n">html_text</span><span class="p">()</span><span class="w"> 
+     
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">댓글수_cl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">댓글수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">댓글수_cl</span><span class="p">,</span><span class="w"> </span><span class="s2">"수동확인"</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="n">댓글수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">댓글수_cl</span><span class="p">,</span><span class="w"> </span><span class="n">댓글수.tmp</span><span class="p">)</span><span class="w"> 
+    </span><span class="p">}</span><span class="w"> 
+     
+     
+     
+    </span><span class="c1">##주소 </span><span class="w">
+     
+    </span><span class="n">주소_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">append</span><span class="p">(</span><span class="n">주소_cl</span><span class="p">,</span><span class="w"> </span><span class="n">링크_cl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> 
+     
+     
+     
+    </span><span class="n">Sys.sleep</span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">     </span><span class="c1">## (중요!) 반복되는 작업으로 디도스(DDOS)로 오인 받지 않을려면 반드시 넣습니다!!</span><span class="w">
+     
+  </span><span class="p">},</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="n">cat</span><span class="p">(</span><span class="s2">"불러올 수 없습니다!\n"</span><span class="p">))</span><span class="w"> 
+</span><span class="p">}</span><span class="w"> 
+  
+  
+  
+</span><span class="c1">## 데이터 전처리</span><span class="w">
+ 
+</span><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">제목_cl</span><span class="p">)</span><span class="w"> 
+</span><span class="n">제목_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">제목_cl</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">본문_cl</span><span class="p">)</span><span class="w"> 
+</span><span class="n">본문_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">본문_cl</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">조회수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\\D"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">조회수_cl</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\n"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">댓글_cl</span><span class="p">)</span><span class="w"> 
+</span><span class="n">댓글_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\t"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">댓글_cl</span><span class="p">)</span><span class="w"> 
+
+</span><span class="n">댓글수_cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="s2">"\\D"</span><span class="p">,</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">댓글수_cl</span><span class="p">)</span><span class="w"> 
+
+
+
+</span><span class="c1">## data.frame 저장</span><span class="w">
+
+</span><span class="n">clien_갤럭시폴드_본문</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">날짜_cl</span><span class="p">,</span><span class="w"> </span><span class="n">제목_cl</span><span class="p">,</span><span class="w"> </span><span class="n">본문_cl</span><span class="p">,</span><span class="w"> </span><span class="n">조회수_cl</span><span class="p">,</span><span class="w"> </span><span class="n">댓글수_cl</span><span class="p">,</span><span class="w"> </span><span class="n">주소_cl</span><span class="p">)</span><span class="w">   
+</span><span class="n">clien_갤럭시폴드_댓글</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">댓글_cl</span><span class="p">)</span><span class="w">  
+
+</span><span class="n">write.csv</span><span class="p">(</span><span class="n">clien_갤럭시폴드_본문</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"D:/clien_갤럭시폴드_본문.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> 
+</span><span class="n">write.csv</span><span class="p">(</span><span class="n">clien_갤럭시폴드_댓글</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"D:/clien_갤럭시폴드_댓글.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> 
+</span></pre></table></code></div></div><p>최종결과로 csv저장된 파일입니다 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb3fG0z%2FbtqBUUce1bh%2FQHYfEs877ZzUudRQlHQVN0%2Fimg.png" alt="clien07" /> 클리앙 : 날짜 제목 본문 조회수 댓글수 주소 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiGClR%2FbtqBVMrfgnx%2FlkbYyOA6gn0fLPsNHY2D80%2Fimg.png" alt="clien08" /> 클리앙 : 댓글</p><p>다음 포스팅은 GET/POST방법으로만 클리앙(Clien)을 크롤링 하겠습니다</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/r-pyomega/categories/r/'>R</a>, <a href='/r-pyomega/categories/crawling/'>Crawling</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/r-pyomega/tags/clien/" class="post-tag no-text-decoration" >clien</a> <a href="/r-pyomega/tags/get-crawling/" class="post-tag no-text-decoration" >GET crawling</a> <a href="/r-pyomega/tags/r/" class="post-tag no-text-decoration" >r</a> <a href="/r-pyomega/tags/r-crawling/" class="post-tag no-text-decoration" >r crawling</a> <a href="/r-pyomega/tags/r-language/" class="post-tag no-text-decoration" >R language</a> <a href="/r-pyomega/tags/r-%ED%81%AC%EB%A1%A4%EB%A7%81/" class="post-tag no-text-decoration" >R 크롤링</a> <a href="/r-pyomega/tags/selenium/" class="post-tag no-text-decoration" >Selenium</a> <a href="/r-pyomega/tags/%EC%85%80%EB%A0%88%EB%8B%88%EC%9B%80/" class="post-tag no-text-decoration" >셀레니움</a> <a href="/r-pyomega/tags/%ED%81%B4%EB%A6%AC%EC%95%99/" class="post-tag no-text-decoration" >클리앙</a> <a href="/r-pyomega/tags/%ED%81%B4%EB%A6%AC%EC%95%99-%ED%81%AC%EB%A1%A4%EB%A7%81/" class="post-tag no-text-decoration" >클리앙 크롤링</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움) - R-Pyomega&url=https://blogleeyoo.github.io/r-pyomega/posts/R-Crawling-Clien/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움) - R-Pyomega&u=https://blogleeyoo.github.io/r-pyomega/posts/R-Crawling-Clien/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://telegram.me/share?text=R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움) - R-Pyomega&url=https://blogleeyoo.github.io/r-pyomega/posts/R-Crawling-Clien/" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i class="fa-fw fas fa-link small" onclick="copyLink()" data-toggle="tooltip" data-placement="top" title="Copy link"></i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down"><div class="access"><div id="access-lastmod" class="post"> <span>Recent Update</span><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/r-pyomega/posts/R-Crawling-Clien/">R 크롤링 클리앙(Clien) GET / POST + Selenium (셀레니움)</a><li><a href="/r-pyomega/posts/R-Crawling-DCinside(GET,POST)/">R 크롤링 디시인사이드 (DC Inside) GET / POST 방식</a><li><a href="/r-pyomega/posts/pythonIDE/">Python 기본 개발 환경 구축</a><li><a href="/r-pyomega/posts/python-R/">R vs Python</a><li><a href="/r-pyomega/posts/R-Crawling-DCinside/">R 크롤링 디시인사이드 (DC Inside) GET / POST + Selenium (셀레니움)</a></ul></div><div id="access-tags"> <span>Trending Tags</span><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/r-pyomega/tags/r/">r</a> <a class="post-tag" href="/r-pyomega/tags/r-language/">R language</a> <a class="post-tag" href="/r-pyomega/tags/selenium/">Selenium</a> <a class="post-tag" href="/r-pyomega/tags/get-crawling/">GET crawling</a> <a class="post-tag" href="/r-pyomega/tags/r-crawling/">r crawling</a> <a class="post-tag" href="/r-pyomega/tags/r-%ED%81%AC%EB%A1%A4%EB%A7%81/">R 크롤링</a> <a class="post-tag" href="/r-pyomega/tags/%EC%85%80%EB%A0%88%EB%8B%88%EC%9B%80/">셀레니움</a> <a class="post-tag" href="/r-pyomega/tags/kolmogorov-smirnov-test/">Kolmogorov-Smirnov test</a> <a class="post-tag" href="/r-pyomega/tags/multivariate/">Multivariate</a> <a class="post-tag" href="/r-pyomega/tags/normality-test/">Normality Test</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"> <span class="pl-3 pt-2 mb-2">Contents</span><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="post-extend-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/r-pyomega/posts/R-Crawling-DCinside/"><div class="card-body"> <span class="timeago small" > Feb 10, 2020 <i class="unloaded">2020-02-10T10:49:00+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>R 크롤링 디시인사이드 (DC Inside) GET / POST + Selenium (셀레니움)</h3><div class="text-muted small"><p> 크롤링에 필요한 패키지(package)와 라이브러리(library)는 아래와 같습니다 install.packages(c("dplyr", "httr", "jsonlite", "rJava", "RSelenium", "stringr") · library(dplyr) · library(httr) · library(jsonlite) · library(rJa...</p></div></div></a></div><div class="card"> <a href="/r-pyomega/posts/R-Crawling-DCinside(GET,POST)/"><div class="card-body"> <span class="timeago small" > Feb 10, 2020 <i class="unloaded">2020-02-10T13:25:00+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>R 크롤링 디시인사이드 (DC Inside) GET / POST 방식</h3><div class="text-muted small"><p> · library(dplyr) · library(httr) · library(jsonlite) · library(rJava) · library(RSelenium) · library(stringr) #### 각키갤 GET/POST방식 링크_각키 &lt;- c() n &lt;- 201 for(i in 1:n){ tryCatc...</p></div></div></a></div><div class="card"> <a href="/r-pyomega/posts/R-Crawling-necessary-tools/"><div class="card-body"> <span class="timeago small" > Feb 7, 2020 <i class="unloaded">2020-02-07T17:53:00+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>R 크롤링 필요 도구들 (Web crawling with R and necessary tools)</h3><div class="text-muted small"><p> 1. 웹 크롤링이란? 웹 크롤링은 웹 페이지에서 보이는 data(contents라고도 합니다)를 유저의 편의에 따라 수집하는 것을 말합니다 웹 크롤링 방식과 사용도구에 따라 크롤링 방식(process)은 조금씩 상이할 수 있지만 대체적으로 아래와 같은 방식을 따릅니다 (1) HTTP Request(요청) · GET / POST 방식의 HTTP...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/r-pyomega/posts/R-Crawling-DCinside(GET,POST)/" class="btn btn-outline-primary" prompt="Older"><p>R 크롤링 디시인사이드 (DC Inside) GET / POST 방식</p></a> <a href="/r-pyomega/posts/R-Normality-Test/" class="btn btn-outline-primary" prompt="Newer"><p>R 다변량 통계 분석 - 1. 일변량 정규성 검정(Normality Test) Q-Q plot, qqplotr, Kolmogorov-Smirnov test, Shapiro-Wilk test</p></a></div></div></div></div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script> <script type="text/javascript"> const imgs = document.querySelectorAll('.post-content img'); const observer = lozad(imgs); observer.observe(); </script><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center"><div class="footer-left"><p class="mb-0"> © 2021 <a href="https://twitter.com/blogleeyoo">blogleeyoo</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-xl-11 post-content"><div id="search-hints"><h4 class="text-muted mb-4">Trending Tags</h4><a class="post-tag" href="/r-pyomega/tags/r/">r</a> <a class="post-tag" href="/r-pyomega/tags/r-language/">R language</a> <a class="post-tag" href="/r-pyomega/tags/selenium/">Selenium</a> <a class="post-tag" href="/r-pyomega/tags/get-crawling/">GET crawling</a> <a class="post-tag" href="/r-pyomega/tags/r-crawling/">r crawling</a> <a class="post-tag" href="/r-pyomega/tags/r-%ED%81%AC%EB%A1%A4%EB%A7%81/">R 크롤링</a> <a class="post-tag" href="/r-pyomega/tags/%EC%85%80%EB%A0%88%EB%8B%88%EC%9B%80/">셀레니움</a> <a class="post-tag" href="/r-pyomega/tags/kolmogorov-smirnov-test/">Kolmogorov Smirnov test</a> <a class="post-tag" href="/r-pyomega/tags/multivariate/">Multivariate</a> <a class="post-tag" href="/r-pyomega/tags/normality-test/">Normality Test</a></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js"></script> <script> $(function() { let initTheme = "default"; if ($("html[mode=dark]").length > 0 || ($("html[mode]").length == 0 && window.matchMedia("(prefers-color-scheme: dark)").matches ) ) { initTheme = "dark"; } let mermaidConf = { theme: initTheme /* <default|dark|forest|neutral> */ }; /* Markdown converts to HTML */ $("pre").has("code.language-mermaid").each(function() { let svgCode = $(this).children().html(); $(this).addClass("unloaded"); $(this).after(`<div class=\"mermaid\">${svgCode}</div>`); }); mermaid.initialize(mermaidConf); }); </script><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/r-pyomega/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="https://blogleeyoo.github.io{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"><div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>{categories}</div><div><i class="fa fa-tag fa-fw"></i>{tags}</div></div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>' }); </script>
